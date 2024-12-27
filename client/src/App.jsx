@@ -2,19 +2,18 @@ import React from "react";
 
 import { Link } from "react-router-dom";
 import "./App.css";
-import { GoogleLogin } from "@react-oauth/google";
 
 const App = () => {
   return (
     <div className="main">
       <div className="main-box">
-        <h1>Welcome to Chat App</h1>
+        <h1>Welcome to ChitChatty</h1>
         <div>
           <Link to="login" className="login">
-            <p>Login</p>
+            <p>Sign up</p>
           </Link>
           <Link to="signup" className="login">
-            <p>SignUp</p>
+            <p>Log in</p>
           </Link>
         </div>
       </div>

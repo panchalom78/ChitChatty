@@ -24,7 +24,7 @@ export const ReqList = ({ requests, userId, setRequests,setContacts ,socket,user
       console.log(data);
       
       setContacts((con)=>{
-        return [...con,{id:data._id,name:data.Username,profile:data.ProfilePic,aboutmE:data.AboutMe}]
+        return [...con,{id:data._id,username:data.Username,profile:data.ProfilePic,aboutmE:data.AboutMe}]
       })
     }
 
@@ -36,7 +36,7 @@ export const ReqList = ({ requests, userId, setRequests,setContacts ,socket,user
         requests.map((req, index) => {
           return <div className='req' key={index}>
             <div className='req-name'>
-              {req.name}
+              {req.username}
             </div>
             <div className="req-btn">
               <button onClick={() => {

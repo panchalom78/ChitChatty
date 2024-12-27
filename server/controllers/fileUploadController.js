@@ -85,8 +85,10 @@ const updateProfileWithProfile = async function (req, res, next) {
 
 const updateProfileWithOutProfile = async function (req, res, next) {
     try {
+      console.log(req.body);
+      
         
-        const data = {}
+        let data = {}
         if(req.body.username){
             data = {...data,Username:req.body.username}
         }

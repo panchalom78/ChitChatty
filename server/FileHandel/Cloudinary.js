@@ -16,7 +16,8 @@ async function uploadPhoto(filePath, id) {
     console.log(filePath);
     
     const response = await cloudinary.uploader.upload(filePath, {
-      public_id: `${id}_${Date.now()}`, // Use timestamp to ensure unique ID
+      public_id: `${id}_${Date.now()}`, // Use timestamp to ensure unique ID,
+      transformation:[{quality:"50"}]
     });
     console.log(response);
     return response.secure_url;

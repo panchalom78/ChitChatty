@@ -41,7 +41,7 @@ export const Home = () => {
 
       setRequests((prev) => {
         const arr = [...prev];
-        arr.push({ name: data.data.Username, id: data.data._id });
+        arr.push({ username: data.data.Username, id: data.data._id });
         return arr;
       });
     };
@@ -54,7 +54,7 @@ export const Home = () => {
   useEffect(() => {
     const handleContact = ({ id, name, profile, aboutme }) => {
       setContacts((prev) => {
-        const arr = [...prev, { id, name, profile, aboutme }];
+        const arr = [...prev, { id, username:name, profile, aboutme }];
         console.log(arr);
 
         return arr;

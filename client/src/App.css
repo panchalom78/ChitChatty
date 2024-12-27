@@ -93,7 +93,7 @@ body, html {
 
 /* Heading styles */
 h1 {
-  font-size: 28px; /* Slightly larger text for emphasis */
+  font-size: 25px; /* Slightly larger text for emphasis */
   font-weight: bold;
   color: #333333; /* Dark gray for text clarity */
   margin-bottom: 25px;

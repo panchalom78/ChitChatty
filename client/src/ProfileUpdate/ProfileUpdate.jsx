@@ -26,19 +26,25 @@ export const ProfileUpdate = () => {
       formData.append("username",username)
     }
     if(about!==user.about){
-      formData.append('about',user.about)
+      formData.append('about',about)
     }
 
     var data;
-    if(profileImage!==user.profile || profileImage!== user.profilePhoto){
+    if(url!==user.profile && url!== user.profilePhoto){
       formData.append("photo",profileImage)
-      data  =await axios.post(updateWithProfile,formData)
+      data  = await axios.post(updateWithProfile,formData)
       console.log("hii");
       console.log(data.data);
-      
     }
     else{
-      data = await axios.post(updateWithOutProfile,formData)
+      let input  = {id:user.id}
+      if(username!==user.username){
+        input = {...input, username}
+      }
+      if(about!==user.about){
+        input = {...input, about}
+      }
+      data = await axios.post(updateWithOutProfile,input)
     }
     setUser(data.data)
     navigate('/home')

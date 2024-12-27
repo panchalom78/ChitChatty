@@ -18,7 +18,7 @@ const sendReq = async (req, res, next) => {
 
 async function getName(id) {
     const data = await User.findOne({ _id: id }, { Password: 0 })
-    return { name: data.Username, id: data._id }
+    return { username: data.Username, id: data._id }
 }
 
 const getReq = async (req, res, next) => {

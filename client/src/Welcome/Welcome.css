@@ -1,0 +1,13 @@
+.welcome{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.msg-svg {
+    display: inline-block;
+    margin: 0 0.5rem;
+    animation: flip infinite; /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 2s; /* don't forget to set a duration! */
+  }
