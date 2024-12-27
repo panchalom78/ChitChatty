@@ -35,7 +35,6 @@ async function uploadImage(req, res, next) {
   try {
     const file = req.file;
 
-    console.log(img);
     const path = await uploadPhoto(
       file.path,
       `${req.body.sender}${new Date()}`
