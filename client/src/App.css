@@ -1,0 +1,143 @@
+/* .main {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+}
+
+.main h1 {
+  text-align: center;
+  margin: 20px 0px;
+}
+
+.main-box {
+  color: white;
+  width: 30%;
+  height: 50%;
+  border: 1px white solid;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.main-box div {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  bottom: 0;
+  align-items: center;
+}
+
+.main-box a {
+  border-radius: 5px;
+  width: 85%;
+  height: 3rem;
+  text-decoration: none;
+  color: black;
+  background-color: aquamarine;
+  padding: 5px 10px;
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  border: 2px solid aquamarine;
+  transition: 0.2s linear;
+}
+
+.main-box a:hover {
+  background-color: black;
+  color: white;
+} */
+
+
+/* App.css */
+
+/* General Reset */
+body, html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif; /* Clean modern font */
+  background-color: #e9ecef; /* Subtle gray background */
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Main container styles */
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.main-box {
+  background-color: #ffffff; /* White card for focus */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Prominent shadow for depth */
+  border-radius: 12px; /* Rounded corners for smooth look */
+  padding: 40px 30px;
+  width: 360px;
+  text-align: center;
+  animation: fadeIn 1s ease-in-out; /* Smooth entrance animation */
+}
+
+/* Heading styles */
+h1 {
+  font-size: 28px; /* Slightly larger text for emphasis */
+  font-weight: bold;
+  color: #333333; /* Dark gray for text clarity */
+  margin-bottom: 25px;
+}
+
+/* Link container styles */
+.main-box div {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Space between buttons */
+  margin-top: 15px;
+}
+
+/* Link styles */
+.login {
+  display: inline-block;
+  padding: 12px 25px;
+  text-decoration: none;
+  font-size: 16px;
+  color: #ffffff; /* White text for contrast */
+  background-color: #0d6efd; /* Primary blue */
+  border-radius: 8px; /* Smooth button edges */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Hover effects */
+  font-weight: 500;
+}
+
+.login:hover {
+  background-color: #084298; /* Darker blue on hover */
+  transform: scale(1.05); /* Subtle pop-out effect */
+}
+
+/* Paragraph styles within links */
+.login p {
+  margin: 0;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+      transform: translateY(-20px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}

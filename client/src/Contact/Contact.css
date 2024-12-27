@@ -1,0 +1,54 @@
+.contact{
+    width: 99%;
+    min-height: 15%;
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    margin-top: 2px;
+    border-radius: 20px;
+}
+
+.user-name{
+    color: black;
+}
+
+.user-image{
+    width: 90px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-image div{
+    width: 70px;
+    height: 70px;
+    background-size: cover;
+    background-position: top;
+    border-radius: 50%;
+}
+
+.user-name{
+    flex-grow: 1;
+}
+
+.opacity{
+    background-color: rgb(172, 181, 208);
+}
+
+.msg-receive{
+    visibility:hidden;
+    width: 20%;
+    align-self: flex-end;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.msg-receive div{
+    height: 1rem;
+    width: 1rem;
+    background-color: green;
+    border-radius: 50%;
+}

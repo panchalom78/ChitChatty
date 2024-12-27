@@ -1,0 +1,196 @@
+/* .add{
+    position: absolute;
+    width: 50vw;
+    height: 60vh;
+    top:20vh;
+    right: 25vw;
+    background-color: azure;
+    z-index: 1;
+}
+
+.add input{
+    width: 70%;
+    height: 2.3rem;
+    background-color: antiquewhite;
+    border: none;
+    outline: none;
+    font-size: 1.5rem;
+}
+
+.add .ser{
+    height: 2.3rem;
+    width: 8%;
+    background-color: antiquewhite;
+    border: none;
+    cursor: pointer;
+}
+
+.add svg{
+    height: 100%;
+    width: 100%;
+}
+
+.inputS{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin-top: 1rem;
+    position: relative;
+}
+
+.head{
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.head button{
+    background-color:bisque;
+    border-radius: 30px;
+    width: 45%;
+    height: 2rem;
+    text-align: center;
+    cursor: pointer;
+    border: none;
+} */
+
+/* Styles for the AddFriend component */
+.black{
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.683);
+    z-index: 12;
+}
+
+.add {
+    width: 50vw;
+    height: 60vh;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem;
+    opacity: 1 !important;
+}
+
+.add input {
+    width: 70%;
+    height: 2.3rem;
+    background-color: #f9f9f9;
+    border: 1px solid #d1d9e6;
+    border-radius: 8px;
+    outline: none;
+    font-size: 1.2rem;
+    padding: 0 0.5rem;
+    transition: border-color 0.3s;
+}
+
+.add input:focus {
+    border-color: #1d3f7e;
+}
+
+.add .ser {
+    height: 2.3rem;
+    width: 3rem;
+    background-color: #1d3f7e;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
+}
+
+.add .ser:hover {
+    background-color: #2e5bb7;
+}
+
+.add svg {
+    height: 70%;
+    width: 70%;
+    fill: white;
+}
+
+.inputS {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin-top: 1rem;
+    position: relative;
+}
+
+.inputS .close {
+    position: absolute;
+    right: 1%;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #e63946;
+    border: none;
+    border-radius: 50%;
+    color: white;
+    font-size: 1rem;
+    height: 2.3rem;
+    width: 2.3rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.inputS .close:hover {
+    background-color: #d62828;
+}
+
+.head {
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 1rem;
+}
+
+.head button {
+    background-color: #f0f2f5;
+    border-radius: 20px;
+    width: 45%;
+    height: 2.5rem;
+    text-align: center;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+.head button:hover {
+    background-color: #e1e8f0;
+    border-color: #1d3f7e;
+}
+
+.head button[style] {
+    border: 2px solid #1d3f7e;
+    background-color: #e1e8f0;
+    color: #1d3f7e;
+}
+
+/* Responsiveness */
+@media screen and (max-width: 768px) {
+    .add {
+        width: 90vw;
+        height: 70vh;
+        top: 15vh;
+        right: 5vw;
+    }
+
+    .head button {
+        width: 48%;
+    }
+}

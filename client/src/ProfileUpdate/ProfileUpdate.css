@@ -1,0 +1,153 @@
+.profileUpdate {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: hidden;
+}
+
+.profileNav {
+  width: 100%;
+  height: 10%;
+  background-color: #1d3f7e;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.profileNav h1 {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.backButton {
+  background-color: #2e5bb7;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  height: 40px;
+  padding: 0 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.backButton:hover {
+  background-color: #416dbb;
+}
+
+.form-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+.profileFormContainer {
+  width: 100%;
+  max-width: 500px;
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.profileForm {
+  width: 100%;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
+}
+
+.formGroup label {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.formGroup input {
+  height: 40px;
+  padding: 0 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.formGroup input:focus {
+  border-color: #2e5bb7;
+}
+
+.profileImageContainer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.profileImagePreview {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  object-fit: cover;
+  background-color: #e4e7eb;
+}
+
+.profileImageInput {
+  flex-grow: 1;
+}
+
+.updateButton {
+  width: 100%;
+  height: 40px;
+  background-color: #2e5bb7;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.updateButton:hover {
+  background-color: #416dbb;
+}
+
+.message {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: green;
+  text-align: center;
+}
+
+/* Mobile responsiveness */
+@media screen and (max-width: 768px) {
+  .profileFormContainer {
+    padding: 1.5rem;
+  }
+
+  .profileNav {
+    padding: 0 1rem;
+  }
+
+  .formGroup label {
+    font-size: 0.9rem;
+  }
+
+  .profileImagePreview {
+    width: 60px;
+    height: 60px;
+  }
+}

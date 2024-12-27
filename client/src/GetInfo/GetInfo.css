@@ -1,0 +1,105 @@
+/* General page styling */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+  background: #2c2c2c; /* Dark grey background */
+  color: #ffffff;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.addInfo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+form#infoForm {
+  background: #3d3d3d; /* Slightly lighter grey for the form background */
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  width: 400px;
+  text-align: center;
+}
+
+form#infoForm input[type="file"] {
+  display: none;
+}
+
+.profilePic {
+  margin-bottom: 20px;
+}
+
+#profileLabel {
+  cursor: pointer;
+  display: inline-block;
+}
+
+.photoDiv {
+  width: 120px;
+  height: 120px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 50%;
+  border: 3px solid #ffffff;
+  margin: 0 auto;
+}
+
+input#infoName,
+form#infoForm input[type="text"],
+form#infoForm input[type="submit"] {
+  width: calc(100% - 40px);
+  margin: 10px auto;
+  padding: 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  background: #2c2c2c;
+  color: #ffffff;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+input#infoName:focus,
+form#infoForm input[type="text"]:focus {
+  border-color: #e0e0e0;
+  background: #3d3d3d;
+}
+
+form#infoForm input[type="submit"] {
+  background: #2c2c2c;
+  color: #e0e0e0;
+  border: 2px solid #e0e0e0;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+form#infoForm input[type="submit"]:hover {
+  background: #e0e0e0;
+  color: #2c2c2c;
+}
+
+/* Loader styling */
+.loader {
+  border: 8px solid #3d3d3d; /* Light grey background for loader */
+  border-top: 8px solid #e0e0e0; /* Light grey spinning part */
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

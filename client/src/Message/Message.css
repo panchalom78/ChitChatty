@@ -1,0 +1,37 @@
+.message {
+    width: fit-content;
+    height: fit-content;
+    max-width: 60%; /* Limit the chat bubble width */
+    border-radius: 1rem;
+    background-color: rgb(172, 181, 208);
+    display: block;
+    margin-bottom: 0.3rem;
+    overflow: hidden; /* Ensures content stays within the bubble */
+    position: relative;
+}
+
+.message p {
+    padding: 1rem;
+    margin: 0; /* Remove extra margin for better alignment */
+    font-size: 16px; /* Ensures readability */
+    word-wrap: break-word; /* Prevent long words from overflowing */
+}
+
+.message img {
+    max-width: 100%; /* Ensure the image does not exceed the container width */
+    max-height: 300px; /* Set a maximum height for images */
+    border-radius: 0.8rem; /* Match the bubble's rounded corners */
+    object-fit: cover; /* Maintain aspect ratio while filling the container */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add a slight shadow for aesthetics */
+    margin: 0.5rem; /* Maintain spacing inside the bubble */
+}
+
+.left {
+    float: left;
+    clear: both;
+}
+
+.right {
+    float: right;
+    clear: both;
+}
