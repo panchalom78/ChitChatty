@@ -102,8 +102,8 @@ export const SignUp = () => {
 };
 
 const StyledWrapper = styled.div`
+width: 30vw;
   .form-container {
-    width: 400px;
     border-radius: 0.75rem;
     background-color: rgba(17, 24, 39, 1);
     padding: 2rem;
@@ -152,17 +152,19 @@ const StyledWrapper = styled.div`
     justify-content: flex-end;
     font-size: 0.75rem;
     line-height: 1rem;
-    color: rgba(156, 163, 175,1);
+    color: rgba(156, 163, 175, 1);
     margin: 8px 0 14px 0;
   }
 
-  .forgot a,.signup a {
+  .forgot a,
+  .signup a {
     color: rgba(243, 244, 246, 1);
     text-decoration: none;
     font-size: 14px;
   }
 
-  .forgot a:hover, .signup a:hover {
+  .forgot a:hover,
+  .signup a:hover {
     text-decoration: underline rgba(167, 139, 250, 1);
   }
 
@@ -222,5 +224,51 @@ const StyledWrapper = styled.div`
     font-size: 0.75rem;
     line-height: 1rem;
     color: rgba(156, 163, 175, 1);
-  }`;
+  }
 
+  @media (max-width: 768px) {
+    width: 50vw;
+    .form-container {
+      padding: 1.5rem;
+    }
+
+    .title {
+      font-size: 1.25rem;
+    }
+
+    .input-group input {
+      padding: 0.5rem 0.75rem;
+    }
+
+    .sign {
+      padding: 0.5rem;
+      font-size: 0.875rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    width: 79vw;
+    .form-container {
+      padding: 1rem;
+      width: 100%;
+    }
+
+    .title {
+      font-size: 1rem;
+    }
+
+    .input-group input {
+      padding: 0.5rem;
+    }
+
+    .sign {
+      padding: 0.5rem;
+      font-size: 0.75rem;
+    }
+
+    .forgot a,
+    .signup a {
+      font-size: 12px;
+    }
+  }
+`;

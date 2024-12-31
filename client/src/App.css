@@ -1,64 +1,3 @@
-/* .main {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: black;
-}
-
-.main h1 {
-  text-align: center;
-  margin: 20px 0px;
-}
-
-.main-box {
-  color: white;
-  width: 30%;
-  height: 50%;
-  border: 1px white solid;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-  border-radius: 5px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-}
-
-.main-box div {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  bottom: 0;
-  align-items: center;
-}
-
-.main-box a {
-  border-radius: 5px;
-  width: 85%;
-  height: 3rem;
-  text-decoration: none;
-  color: black;
-  background-color: aquamarine;
-  padding: 5px 10px;
-  margin-bottom: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
-  border: 2px solid aquamarine;
-  transition: 0.2s linear;
-}
-
-.main-box a:hover {
-  background-color: black;
-  color: white;
-} */
-
-
-/* App.css */
-
 /* General Reset */
 body, html {
   margin: 0;
@@ -139,5 +78,37 @@ h1 {
   to {
       opacity: 1;
       transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .main-box {
+    width: 90%; /* Adjust width to fit smaller screens */
+    padding: 30px 20px;
+  }
+
+  h1 {
+    font-size: 20px; /* Adjust font size for smaller screens */
+  }
+
+  .login {
+    font-size: 14px; /* Slightly smaller buttons */
+    padding: 10px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 18px; /* Further reduce heading size */
+  }
+
+  .login {
+    font-size: 13px; /* Make buttons even more compact */
+    padding: 8px 15px;
+  }
+
+  .main-box {
+    padding: 20px 15px; /* Reduce padding */
   }
 }

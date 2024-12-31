@@ -149,8 +149,8 @@ export const Login = () => {
 };
 
 const StyledWrapper = styled.div`
+width: 30vw;
   .form-container {
-    width: 400px;
     border-radius: 0.75rem;
     background-color: rgba(17, 24, 39, 1);
     padding: 2rem;
@@ -272,4 +272,51 @@ const StyledWrapper = styled.div`
     line-height: 1rem;
     color: rgba(156, 163, 175, 1);
   }
+
+  @media (max-width: 768px) {
+    width: 50vw;
+    .form-container {
+      padding: 1.5rem;
+    }
+
+    .title {
+      font-size: 1.25rem;
+    }
+
+    .input-group input {
+      padding: 0.5rem 0.75rem;
+    }
+
+    .sign {
+      padding: 0.5rem;
+      font-size: 0.875rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    width: 79vw;
+    .form-container {
+      padding: 1rem;
+      width: 100%;
+    }
+
+    .title {
+      font-size: 1rem;
+    }
+
+    .input-group input {
+      padding: 0.5rem;
+    }
+
+    .sign {
+      padding: 0.5rem;
+      font-size: 0.75rem;
+    }
+
+    .forgot a,
+    .signup a {
+      font-size: 12px;
+    }
+  }
 `;
+

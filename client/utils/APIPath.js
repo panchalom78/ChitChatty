@@ -1,11 +1,11 @@
 
-export const host ="";
+export const host ="http://localhost:3000";
 
 export const loginPath = `${host}/login`
 export const signPath = `${host}/signIn`
 export const getUsers = `${host}/users`
 export const getMsg = `${host}/getmessage`
-export const getFriend = `${host}/friends`
+export const getFriend = `${host}/friends`  
 export const addFriend = `${host}/addfriend`
 export const getReq = `${host}/getRequests`
 export const handelReq = `${host}/handleReq`
