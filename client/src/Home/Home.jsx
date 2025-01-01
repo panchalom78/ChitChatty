@@ -12,6 +12,8 @@ import { AddFriend } from "../AddFriend/AddFriend";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useAuth } from "../../utils/AuthProvider";
 import UpdateIcon from "@mui/icons-material/Update";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+
 
 export const Home = () => {
   const { user } = useAuth();
@@ -196,7 +198,7 @@ const [showChatSection, setShowChatSection] = useState(false);
 
   {isMobileView && showChatSection ? (
     <div className="chat-section active">
-      <button onClick={goToContactList} className="back-button">Back</button>
+      <button onClick={goToContactList} className="back-button"><ArrowBackIcon/></button>
       {currentChat === undefined ? (
         <Welcome />
       ) : (

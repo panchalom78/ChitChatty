@@ -5,7 +5,6 @@ import { getMsg, uploadImage } from "../../utils/APIPath";
 import axios from "axios";
 import  EmojiComponet  from "../Emoji/EmojiComponet";
 import { ChatInput } from "../ChatInput/ChatInput";
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 export const Chat = ({ user, contact, socket, handleMsg }) => {
   const ref = useRef(null);
@@ -155,9 +154,7 @@ export const Chat = ({ user, contact, socket, handleMsg }) => {
 
   return (
     <div className="chatmain">
-      <div className="back-icon">
-        <ArrowBackIcon/>
-      </div>
+      
       <div className="chat-msg">
         {messages.map((msg, index) => (
           <Message

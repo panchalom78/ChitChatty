@@ -250,6 +250,7 @@ body {
   
     .chat-section.active {
       display: block;
+      position: relative
     }
   
     .chatlist.hidden {
@@ -261,3 +262,12 @@ body {
     }
   }
   
+.back-button{
+    position: absolute;
+    z-index: 1;
+    margin: 1rem 0 0 1rem;
+    padding: .5rem;
+    border:none;
+    border-radius: 10px;
+    background-color:#1d3f7e;
+}   
