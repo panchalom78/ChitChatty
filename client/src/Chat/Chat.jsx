@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useRef } from "react";
 import "./Chat.css";
 import { Message } from "../Message/Message";
-import { getMsg, uploadImage } from "../../utils/APIPath";
+import { getMsg, uploadImage } from "../../APIPath";
 import axios from "axios";
-import  EmojiComponet  from "../Emoji/EmojiComponet";
+import EmojiComponet from "../Emoji/EmojiComponet";
 import { ChatInput } from "../ChatInput/ChatInput";
 
 export const Chat = ({ user, contact, socket, handleMsg }) => {
@@ -154,7 +154,6 @@ export const Chat = ({ user, contact, socket, handleMsg }) => {
 
   return (
     <div className="chatmain">
-      
       <div className="chat-msg">
         {messages.map((msg, index) => (
           <Message
@@ -164,9 +163,7 @@ export const Chat = ({ user, contact, socket, handleMsg }) => {
             isImage={msg.isImage}
           />
         ))}
-        {isEmojiOpen && (
-          <EmojiComponet setText={setText}/>
-        )}
+        {isEmojiOpen && <EmojiComponet setText={setText} />}
 
         <div className="scroll" ref={ref}></div>
       </div>
@@ -191,7 +188,13 @@ export const Chat = ({ user, contact, socket, handleMsg }) => {
           </button>
         </div>
       )}
-      <ChatInput handleChange={handleChange} handleClick={handleClick} handleImageChange={handleImageChange} setIsEmojiOpen={setIsEmojiOpen} text={text}/>
+      <ChatInput
+        handleChange={handleChange}
+        handleClick={handleClick}
+        handleImageChange={handleImageChange}
+        setIsEmojiOpen={setIsEmojiOpen}
+        text={text}
+      />
 
       {/* <div className="chat-input">
         <button

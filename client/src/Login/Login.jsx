@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate,Link } from "react-router-dom";
-import { loginPath } from "../../utils/APIPath";
+import { useNavigate, Link } from "react-router-dom";
+import { loginPath } from "../../APIPath";
 import { Flip, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useAuth } from "../../utils/AuthProvider";
 import styled from "styled-components";
-import {GoogleLogin} from '@react-oauth/google'
+import { GoogleLogin } from "@react-oauth/google";
 
 export const Login = () => {
   const { signIn, setUser } = useAuth();
@@ -91,7 +91,7 @@ export const Login = () => {
                 onChange={updateChange}
               />
             </div>
-            <div className="input-group" style={{marginBottom:'1rem'}}>
+            <div className="input-group" style={{ marginBottom: "1rem" }}>
               <label htmlFor="password">Confirm Password</label>
               <input type="password" name="Confirm" onChange={updateChange} />
               {/* <div className="forgot">
@@ -149,7 +149,7 @@ export const Login = () => {
 };
 
 const StyledWrapper = styled.div`
-width: 30vw;
+  width: 30vw;
   .form-container {
     border-radius: 0.75rem;
     background-color: rgba(17, 24, 39, 1);
@@ -319,4 +319,3 @@ width: 30vw;
     }
   }
 `;
-

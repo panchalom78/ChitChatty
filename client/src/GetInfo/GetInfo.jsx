@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { profile,getUserByName } from "../../utils/APIPath";
+import { profile, getUserByName } from "../../APIPath";
 import "./GetInfo.css";
 import { useNavigate } from "react-router-dom";
 import { Flip, ToastContainer, toast } from "react-toastify";
@@ -16,7 +16,7 @@ export const GetInfo = () => {
   const [photoURL, setPhotoURL] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { user ,setUser} = useAuth();
+  const { user, setUser } = useAuth();
 
   const toastOptions = {
     position: "bottom-right",
@@ -35,13 +35,13 @@ export const GetInfo = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if(username ==="" || aboutme === ""){
+    if (username === "" || aboutme === "") {
       toast.error("Please enter username and aboutme", toastOptions);
       return;
     }
-    
-    const check = await axios.post(getUserByName,{name:username})
-    if(check.data.value){
+
+    const check = await axios.post(getUserByName, { name: username });
+    if (check.data.value) {
       toast.error("Username already exists", toastOptions);
       return;
     }
@@ -49,70 +49,68 @@ export const GetInfo = () => {
     setLoading(true);
     try {
       e.preventDefault();
-    const formData = new FormData();
-    formData.append("photo", photo);
-    formData.append("username", username);
-    formData.append("aboutme", aboutme);
-    formData.append("id", user.id);
+      const formData = new FormData();
+      formData.append("photo", photo);
+      formData.append("username", username);
+      formData.append("aboutme", aboutme);
+      formData.append("id", user.id);
 
-    console.log(formData);
+      console.log(formData);
 
-    const data = await axios.post(profile, formData);
-    const info = data.data
-    console.log(info);
-    
-    setUser(info)
-    navigate("/home");
+      const data = await axios.post(profile, formData);
+      const info = data.data;
+      console.log(info);
+
+      setUser(info);
+      navigate("/home");
     } catch (error) {
-      console.log(error.message);      
+      console.log(error.message);
     }
-
   };
 
   return (
     <>
-    <div className="addInfo">
-      {loading ? (
-        <div className="loader">
-        </div>
-      ) : (
-        <form onSubmit={handleSubmit} id="infoForm">
-          <div className="profilePic">
-            <label htmlFor="files" id="profileLabel">
-              <div
-                className="photoDiv"
-                style={{
-                  backgroundImage: isPhotoSet
-                  ? `url(${photoURL})`
-                  : `url(${profilePhoto})`,
-                }}
-              ></div>
-            </label>
-          </div>
-          <input type="file" id="files" onChange={handleChange} />
-          <input
-          id="infoName"
-            type="text"
-            name=""
-            value={username}
-            placeholder="Username..."
-            onChange={(e) => {
-              setUserName(e.target.value);
-            }}
+      <div className="addInfo">
+        {loading ? (
+          <div className="loader"></div>
+        ) : (
+          <form onSubmit={handleSubmit} id="infoForm">
+            <div className="profilePic">
+              <label htmlFor="files" id="profileLabel">
+                <div
+                  className="photoDiv"
+                  style={{
+                    backgroundImage: isPhotoSet
+                      ? `url(${photoURL})`
+                      : `url(${profilePhoto})`,
+                  }}
+                ></div>
+              </label>
+            </div>
+            <input type="file" id="files" onChange={handleChange} />
+            <input
+              id="infoName"
+              type="text"
+              name=""
+              value={username}
+              placeholder="Username..."
+              onChange={(e) => {
+                setUserName(e.target.value);
+              }}
             />
-          <input
-            type="text"
-            placeholder="About me..."
-            value={aboutme}
-            onChange={(e) => {
-              setAboutMe(e.target.value);
-            }}
+            <input
+              type="text"
+              placeholder="About me..."
+              value={aboutme}
+              onChange={(e) => {
+                setAboutMe(e.target.value);
+              }}
             />
-          <input type="submit" value="Upload" />
-        </form>
-      )}
-    </div>
-    <ToastContainer />
+            <input type="submit" value="Upload" />
+          </form>
+        )}
+      </div>
+      <ToastContainer />
     </>
   );
 };

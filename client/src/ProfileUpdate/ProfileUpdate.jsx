@@ -4,7 +4,7 @@ import "./ProfileUpdate.css";
 import { useAuth } from "../../utils/AuthProvider";
 import axios from "axios";
 import profilePhoto from "../../photos/image.png";
-import { updateWithOutProfile,updateWithProfile } from "../../utils/APIPath";
+import { updateWithOutProfile,updateWithProfile } from "../../APIPath";
 export const ProfileUpdate = () => {
   const { user, setUser } = useAuth();  
   const navigate = useNavigate();

@@ -5,15 +5,14 @@ import "./Home.css";
 import { Contact } from "../Contact/Contact";
 import { Chat } from "../Chat/Chat";
 import Welcome from "../Welcome/Welcome";
-import { host, getUsers, getReq, getUser } from "../../utils/APIPath";
+import { host, getUsers, getReq, getUser } from "../../APIPath";
 import axios from "axios";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { AddFriend } from "../AddFriend/AddFriend";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useAuth } from "../../utils/AuthProvider";
 import UpdateIcon from "@mui/icons-material/Update";
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 export const Home = () => {
   const { user } = useAuth();
@@ -23,7 +22,7 @@ export const Home = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [currentChat, setCurrentChat] = useState(undefined);
   const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 768);
-const [showChatSection, setShowChatSection] = useState(false);
+  const [showChatSection, setShowChatSection] = useState(false);
 
   const socket = useRef();
 
@@ -51,7 +50,6 @@ const [showChatSection, setShowChatSection] = useState(false);
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-  
 
   useEffect(() => {
     const handleAddReq = async ({ sender }) => {
@@ -73,7 +71,7 @@ const [showChatSection, setShowChatSection] = useState(false);
   useEffect(() => {
     const handleContact = ({ id, name, profile, aboutme }) => {
       setContacts((prev) => {
-        const arr = [...prev, { id, username:name, profile, aboutme }];
+        const arr = [...prev, { id, username: name, profile, aboutme }];
         console.log(arr);
 
         return arr;
@@ -104,7 +102,6 @@ const [showChatSection, setShowChatSection] = useState(false);
   function goToContactList() {
     setShowChatSection(false);
   }
-  
 
   function handleClick() {
     setIsOpen((curr) => {
@@ -137,9 +134,9 @@ const [showChatSection, setShowChatSection] = useState(false);
     });
   };
 
-  const handleUpdate = ()=>{
-    navigate('/updateprofile')
-  }
+  const handleUpdate = () => {
+    navigate("/updateprofile");
+  };
 
   return (
     <div className="home">
@@ -157,7 +154,7 @@ const [showChatSection, setShowChatSection] = useState(false);
         />
       )}
       <nav className="homeNav">
-        <h1 style={{color:'white'}}>ChitChatty</h1>
+        <h1 style={{ color: "white" }}>ChitChatty</h1>
         <div className="btn-grp">
           <button onClick={handleClick}>
             <PersonAddIcon sx={{ color: "white" }} />
@@ -168,81 +165,108 @@ const [showChatSection, setShowChatSection] = useState(false);
         </div>
       </nav>
       <div className="chat">
-  {isMobileView && !showChatSection ? (
-    <div className="chatlist">
-      {contacts.map((contact, index) => (
-        <Contact
-          key={index}
-          contact={contact}
-          setChat={setChat}
-          chat={currentChat}
-          receive={contact.receive ? true : false}
-        />
-      ))}
-      <div className="userProfile">
-        <div className="userPic">
-          <div style={{ backgroundImage: `url(${user.profile})` }}></div>
-        </div>
-        <div className="userInfo">
-          <div className="userName">{user.username}</div>
-          <div className="userAbout">{user.aboutme}</div>
-        </div>
-        <div className="update">
-          <button onClick={handleUpdate} style={{ backgroundColor: "transparent", border: "none", cursor: "pointer" }}>
-            <UpdateIcon style={{ color: "black", fontSize: "2rem" }} />
-          </button>
-        </div>
-      </div>
-    </div>
-  ) : null}
-
-  {isMobileView && showChatSection ? (
-    <div className="chat-section active">
-      <button onClick={goToContactList} className="back-button"><ArrowBackIcon/></button>
-      {currentChat === undefined ? (
-        <Welcome />
-      ) : (
-        <Chat contact={currentChat} user={user} socket={socket} handleMsg={handleMsg} />
-      )}
-    </div>
-  ) : null}
-
-  {!isMobileView && (
-    <>
-      <div className="chatlist">
-        {contacts.map((contact, index) => (
-          <Contact
-            key={index}
-            contact={contact}
-            setChat={setChat}
-            chat={currentChat}
-            receive={contact.receive ? true : false}
-          />
-        ))}
-        <div className="userProfile">
-          <div className="userPic">
-            <div style={{ backgroundImage: `url(${user.profile})` }}></div>
+        {isMobileView && !showChatSection ? (
+          <div className="chatlist">
+            {contacts.map((contact, index) => (
+              <Contact
+                key={index}
+                contact={contact}
+                setChat={setChat}
+                chat={currentChat}
+                receive={contact.receive ? true : false}
+              />
+            ))}
+            <div className="userProfile">
+              <div className="userPic">
+                <div style={{ backgroundImage: `url(${user.profile})` }}></div>
+              </div>
+              <div className="userInfo">
+                <div className="userName">{user.username}</div>
+                <div className="userAbout">{user.aboutme}</div>
+              </div>
+              <div className="update">
+                <button
+                  onClick={handleUpdate}
+                  style={{
+                    backgroundColor: "transparent",
+                    border: "none",
+                    cursor: "pointer",
+                  }}
+                >
+                  <UpdateIcon style={{ color: "black", fontSize: "2rem" }} />
+                </button>
+              </div>
+            </div>
           </div>
-          <div className="userInfo">
-            <div className="userName">{user.username}</div>
-            <div className="userAbout">{user.aboutme}</div>
-          </div>
-          <div className="update">
-            <button onClick={handleUpdate} style={{ backgroundColor: "transparent", border: "none", cursor: "pointer" }}>
-              <UpdateIcon style={{ color: "black", fontSize: "2rem" }} />
+        ) : null}
+
+        {isMobileView && showChatSection ? (
+          <div className="chat-section active">
+            <button onClick={goToContactList} className="back-button">
+              <ArrowBackIcon />
             </button>
+            {currentChat === undefined ? (
+              <Welcome />
+            ) : (
+              <Chat
+                contact={currentChat}
+                user={user}
+                socket={socket}
+                handleMsg={handleMsg}
+              />
+            )}
           </div>
-        </div>
-      </div>
-      {currentChat === undefined ? (
-        <Welcome />
-      ) : (
-        <Chat contact={currentChat} user={user} socket={socket} handleMsg={handleMsg} />
-      )}
-    </>
-  )}
-</div>
+        ) : null}
 
+        {!isMobileView && (
+          <>
+            <div className="chatlist">
+              {contacts.map((contact, index) => (
+                <Contact
+                  key={index}
+                  contact={contact}
+                  setChat={setChat}
+                  chat={currentChat}
+                  receive={contact.receive ? true : false}
+                />
+              ))}
+              <div className="userProfile">
+                <div className="userPic">
+                  <div
+                    style={{ backgroundImage: `url(${user.profile})` }}
+                  ></div>
+                </div>
+                <div className="userInfo">
+                  <div className="userName">{user.username}</div>
+                  <div className="userAbout">{user.aboutme}</div>
+                </div>
+                <div className="update">
+                  <button
+                    onClick={handleUpdate}
+                    style={{
+                      backgroundColor: "transparent",
+                      border: "none",
+                      cursor: "pointer",
+                    }}
+                  >
+                    <UpdateIcon style={{ color: "black", fontSize: "2rem" }} />
+                  </button>
+                </div>
+              </div>
+            </div>
+            {currentChat === undefined ? (
+              <Welcome />
+            ) : (
+              <Chat
+                contact={currentChat}
+                user={user}
+                socket={socket}
+                handleMsg={handleMsg}
+              />
+            )}
+          </>
+        )}
+      </div>
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useContext, useState } from "react";
-import { useNavigate,Link } from "react-router-dom";
-import { signPath } from "../../utils/APIPath";
+import { useNavigate, Link } from "react-router-dom";
+import { signPath } from "../../APIPath";
 import { useAuth } from "../../utils/AuthProvider";
 import styled from "styled-components";
 import { Flip, ToastContainer, toast } from "react-toastify";
@@ -36,8 +36,8 @@ export const SignUp = () => {
 
     if (isUser.value) {
       signIn();
-      if(isUser.isInfoSet){        
-        setUser(isUser.user)
+      if (isUser.isInfoSet) {
+        setUser(isUser.user);
       }
     }
 
@@ -47,34 +47,44 @@ export const SignUp = () => {
       ? isUser.isInfoSet
         ? navigate("/home")
         : navigate("/profile")
-      : alert("wrong pass");  
+      : alert("wrong pass");
   }
   return (
     <>
       <StyledWrapper>
-      <div className="form-container">
-        <p className="title">Login</p>
-        <form className="form" onSubmit={validateUser} method="POST">
-          <div className="input-group">
-            <label htmlFor="username">Email</label>
-            <input type="email" name="Email" id="username" onChange={updateChange}/>
-          </div>
-          <div className="input-group" style={{marginBottom:'1rem'}}>
-            <label htmlFor="password">Password</label>
-            <input type="password" name="Password" id="password" onChange={updateChange}/>
-            {/* <div className="forgot">
+        <div className="form-container">
+          <p className="title">Login</p>
+          <form className="form" onSubmit={validateUser} method="POST">
+            <div className="input-group">
+              <label htmlFor="username">Email</label>
+              <input
+                type="email"
+                name="Email"
+                id="username"
+                onChange={updateChange}
+              />
+            </div>
+            <div className="input-group" style={{ marginBottom: "1rem" }}>
+              <label htmlFor="password">Password</label>
+              <input
+                type="password"
+                name="Password"
+                id="password"
+                onChange={updateChange}
+              />
+              {/* <div className="forgot">
               <a rel="noopener noreferrer" href="#">Forgot Password ?</a>
             </div> */}
-          </div>
-          {/* <button className="sign">Sign in</button> */}
-          <input type="submit" value="Log in" className="sign" />
-        </form>
-        {/* <div className="social-message">
+            </div>
+            {/* <button className="sign">Sign in</button> */}
+            <input type="submit" value="Log in" className="sign" />
+          </form>
+          {/* <div className="social-message">
           <div className="line" />
           <p className="message">Login with social accounts</p>
           <div className="line" />
         </div> */}
-        {/* <div className="social-icons">
+          {/* <div className="social-icons">
           <button aria-label="Log in with Google" className="icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" className="w-5 h-5 fill-current">
               <path d="M16.318 13.714v5.484h9.078c-0.37 2.354-2.745 6.901-9.078 6.901-5.458 0-9.917-4.521-9.917-10.099s4.458-10.099 9.917-10.099c3.109 0 5.193 1.318 6.38 2.464l4.339-4.182c-2.786-2.599-6.396-4.182-10.719-4.182-8.844 0-16 7.151-16 16s7.156 16 16 16c9.234 0 15.365-6.49 15.365-15.635 0-1.052-0.115-1.854-0.255-2.651z" />
@@ -91,18 +101,19 @@ export const SignUp = () => {
             </svg>
           </button>
         </div> */}
-        <p className="signup">Don't have an account?
-        <Link to="/login">Sign up</Link>
-        </p>
-      </div>
-    </StyledWrapper>
+          <p className="signup">
+            Don't have an account?
+            <Link to="/login">Sign up</Link>
+          </p>
+        </div>
+      </StyledWrapper>
       <ToastContainer />
     </>
   );
 };
 
 const StyledWrapper = styled.div`
-width: 30vw;
+  width: 30vw;
   .form-container {
     border-radius: 0.75rem;
     background-color: rgba(17, 24, 39, 1);
