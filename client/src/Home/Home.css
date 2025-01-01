@@ -233,3 +233,31 @@ body {
 .homeNav .btn-grp button svg {
     font-size: 1.5rem;
 }
+
+/* Default layout for larger screens */
+  
+  /* Responsive layout for mobile screens */
+  @media (max-width: 768px) {
+    .chatlist {
+      width: 100%;
+      display: block;
+    }
+  
+    .chat-section {
+      width: 100%;
+      display: none;
+    }
+  
+    .chat-section.active {
+      display: block;
+    }
+  
+    .chatlist.hidden {
+      display: none;
+    }
+
+    .chatmain{
+        height: 100%;
+    }
+  }
+  

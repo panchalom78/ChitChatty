@@ -20,6 +20,9 @@ export const Home = () => {
   const [requests, setRequests] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [currentChat, setCurrentChat] = useState(undefined);
+  const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 768);
+const [showChatSection, setShowChatSection] = useState(false);
+
   const socket = useRef();
 
   useEffect(() => {
@@ -33,6 +36,20 @@ export const Home = () => {
     }
     getR();
   }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobileView(window.innerWidth <= 768);
+      if (window.innerWidth > 768) {
+        setShowChatSection(false);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+  
 
   useEffect(() => {
     const handleAddReq = async ({ sender }) => {
@@ -77,7 +94,15 @@ export const Home = () => {
 
   function setChat(c) {
     setCurrentChat(c);
+    if (isMobileView) {
+      setShowChatSection(true);
+    }
   }
+
+  function goToContactList() {
+    setShowChatSection(false);
+  }
+  
 
   function handleClick() {
     setIsOpen((curr) => {
@@ -141,44 +166,81 @@ export const Home = () => {
         </div>
       </nav>
       <div className="chat">
-        <div className="chatlist">
-          {contacts.map((contact, index) => {
-            return (
-              <Contact
-                key={index}
-                contact={contact}
-                setChat={setChat}
-                chat={currentChat}
-                receive={contact.receive ? true : false}
-              />
-            );
-          })}
-          <div className="userProfile">
-            <div className="userPic">
-              <div style={{ backgroundImage: `url(${user.profile})` }}></div>
-            </div>
-            <div className="userInfo">
-              <div className="userName">{user.username}</div>
-              <div className="userAbout">{user.aboutme}</div>
-            </div>
-            <div className="update">
-              <button onClick={handleUpdate} style={{backgroundColor:'transparent',border:'none', cursor:'pointer'}}>
-              <UpdateIcon style={{color:'black',fontSize:'2rem'}}/>
-              </button>
-            </div>
+  {isMobileView && !showChatSection ? (
+    <div className="chatlist">
+      {contacts.map((contact, index) => (
+        <Contact
+          key={index}
+          contact={contact}
+          setChat={setChat}
+          chat={currentChat}
+          receive={contact.receive ? true : false}
+        />
+      ))}
+      <div className="userProfile">
+        <div className="userPic">
+          <div style={{ backgroundImage: `url(${user.profile})` }}></div>
+        </div>
+        <div className="userInfo">
+          <div className="userName">{user.username}</div>
+          <div className="userAbout">{user.aboutme}</div>
+        </div>
+        <div className="update">
+          <button onClick={handleUpdate} style={{ backgroundColor: "transparent", border: "none", cursor: "pointer" }}>
+            <UpdateIcon style={{ color: "black", fontSize: "2rem" }} />
+          </button>
+        </div>
+      </div>
+    </div>
+  ) : null}
+
+  {isMobileView && showChatSection ? (
+    <div className="chat-section active">
+      <button onClick={goToContactList} className="back-button">Back</button>
+      {currentChat === undefined ? (
+        <Welcome />
+      ) : (
+        <Chat contact={currentChat} user={user} socket={socket} handleMsg={handleMsg} />
+      )}
+    </div>
+  ) : null}
+
+  {!isMobileView && (
+    <>
+      <div className="chatlist">
+        {contacts.map((contact, index) => (
+          <Contact
+            key={index}
+            contact={contact}
+            setChat={setChat}
+            chat={currentChat}
+            receive={contact.receive ? true : false}
+          />
+        ))}
+        <div className="userProfile">
+          <div className="userPic">
+            <div style={{ backgroundImage: `url(${user.profile})` }}></div>
+          </div>
+          <div className="userInfo">
+            <div className="userName">{user.username}</div>
+            <div className="userAbout">{user.aboutme}</div>
+          </div>
+          <div className="update">
+            <button onClick={handleUpdate} style={{ backgroundColor: "transparent", border: "none", cursor: "pointer" }}>
+              <UpdateIcon style={{ color: "black", fontSize: "2rem" }} />
+            </button>
           </div>
         </div>
-        {currentChat === undefined ? (
-          <Welcome />
-        ) : (
-          <Chat
-            contact={currentChat}
-            user={user}
-            socket={socket}
-            handleMsg={handleMsg}
-          />
-        )}
       </div>
+      {currentChat === undefined ? (
+        <Welcome />
+      ) : (
+        <Chat contact={currentChat} user={user} socket={socket} handleMsg={handleMsg} />
+      )}
+    </>
+  )}
+</div>
+
     </div>
   );
 };
