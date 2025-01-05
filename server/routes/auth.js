@@ -4,6 +4,10 @@ import { getReq, sendReq ,handelRequest} from '../controllers/requestController.
 
 const route = express.Router();
 
+route.get('/',(req, res) => {
+    res.send("Hello")
+})
+
 route.post("/login", login);
 route.post("/signIn", signIn);
 route.get("/users/:id", getContacts)
