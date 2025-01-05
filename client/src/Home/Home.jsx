@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, createContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { io } from "socket.io-client";
 import "./Home.css";
@@ -25,6 +25,9 @@ export const Home = () => {
   const [showChatSection, setShowChatSection] = useState(false);
 
   const socket = useRef();
+
+  
+
 
   useEffect(() => {
     socket.current = io(host);
@@ -154,7 +157,7 @@ export const Home = () => {
         />
       )}
       <nav className="homeNav">
-        <h1 style={{ color: "white" }}>ChitChatty</h1>
+        <h1 style={{ color: "white" }}>{isMobileView && showChatSection? currentChat.username : "ChitChatty"}</h1>
         <div className="btn-grp">
           <button onClick={handleClick}>
             <PersonAddIcon sx={{ color: "white" }} />
@@ -213,6 +216,7 @@ export const Home = () => {
                 user={user}
                 socket={socket}
                 handleMsg={handleMsg}
+                isMobileView={isMobileView} 
               />
             )}
           </div>
@@ -262,6 +266,7 @@ export const Home = () => {
                 user={user}
                 socket={socket}
                 handleMsg={handleMsg}
+                isMobileView={isMobileView}
               />
             )}
           </>

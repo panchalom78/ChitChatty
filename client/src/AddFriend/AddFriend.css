@@ -72,8 +72,7 @@
 
 .inputS .close {
     position: absolute;
-    right: 1%;
-    top: 50%;
+    right: 0;
     transform: translateY(-50%);
     background-color: #e63946;
     border: none;
@@ -134,5 +133,15 @@
 
     .head button {
         width: 48%;
+    }
+
+    .close{
+        right: .5%;
+    }
+}
+
+@media screen and (max-width: 920px){
+    .inputS input{
+        width: 50%;
     }
 }

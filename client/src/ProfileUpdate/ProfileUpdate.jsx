@@ -5,6 +5,8 @@ import { useAuth } from "../../utils/AuthProvider";
 import axios from "axios";
 import profilePhoto from "../../photos/image.png";
 import { updateWithOutProfile,updateWithProfile } from "../../APIPath";
+import EditIcon from '@mui/icons-material/Edit';
+
 export const ProfileUpdate = () => {
   const { user, setUser } = useAuth();  
   const navigate = useNavigate();
@@ -65,7 +67,9 @@ export const ProfileUpdate = () => {
               <label>Profile Picture</label>
               <div className="profileImageContainer">
                 <img src={url} alt="Profile" className="profileImagePreview" />
+                <label htmlFor="profile-image"><EditIcon/></label>
                 <input
+                  id="profile-image"
                   type="file"
                   accept="image/*"
                   onChange={handleImageUpload}

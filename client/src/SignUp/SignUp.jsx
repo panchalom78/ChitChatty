@@ -42,12 +42,12 @@ export const SignUp = () => {
     }
 
     isUser.notUser
-      ? alert("No user")
+      ? toast.error("No user found",toastOptions)
       : isUser.value
       ? isUser.isInfoSet
         ? navigate("/home")
         : navigate("/profile")
-      : alert("wrong pass");
+      : toast.error("Wrong credentials",toastOptions)
   }
   return (
     <>

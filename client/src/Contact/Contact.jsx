@@ -38,7 +38,8 @@ export const Contact = ({ contact, setChat, chat, receive }) => {
       }}></div>
       </div>
       <div className="user-name">
-        <p>{contact.username}</p>
+        <p className="name">{contact.username}</p>
+        <p className="about">{contact.about}</p>
       </div>
       <div
         className="msg-receive"

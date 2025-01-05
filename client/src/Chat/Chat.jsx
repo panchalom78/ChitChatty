@@ -5,8 +5,9 @@ import { getMsg, uploadImage } from "../../APIPath";
 import axios from "axios";
 import EmojiComponet from "../Emoji/EmojiComponet";
 import { ChatInput } from "../ChatInput/ChatInput";
+import CloseIcon from '@mui/icons-material/Close';
 
-export const Chat = ({ user, contact, socket, handleMsg }) => {
+export const Chat = ({ user, contact, socket, handleMsg ,isMobileView}) => {
   const ref = useRef(null);
 
   const [messages, setMessages] = useState([]);
@@ -15,6 +16,9 @@ export const Chat = ({ user, contact, socket, handleMsg }) => {
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState("");
   const [isImageSet, setIsImageSet] = useState(false);
+  const [isPreview, setIsPreview] = useState(false);
+  const [previewImage, setPreviewImage] = useState("");
+
   const [isSendingImage, setIsSendingImage] = useState(false);
 
   useEffect(() => {
@@ -161,11 +165,22 @@ export const Chat = ({ user, contact, socket, handleMsg }) => {
             msg={msg.msg}
             isSender={user.id === msg.sender}
             isImage={msg.isImage}
+            setIsPreview={setIsPreview}
+            setPreviewImage={setPreviewImage}
           />
         ))}
-        {isEmojiOpen && <EmojiComponet setText={setText} />}
+        {isEmojiOpen && <EmojiComponet setText={setText} isMobileView={isMobileView} />}
 
         <div className="scroll" ref={ref}></div>
+
+        {isPreview && (
+          <div className="preview-image">
+            <button className="close" onClick={()=>{setIsPreview(false)}}>
+            <CloseIcon/>
+            </button>
+            <img src={previewImage}></img>
+          </div>
+        )}
       </div>
 
       {/* Image Preview Section */}

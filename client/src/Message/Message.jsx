@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import './Message.css'
-export const Message = ({msg,isSender,isImage}) => {
+export const Message = ({msg,isSender,isImage,setIsPreview,setPreviewImage}) => {
 
   
 
@@ -8,6 +8,7 @@ export const Message = ({msg,isSender,isImage}) => {
 
     const [isLoaded, setIsLoaded] = useState(false);
     
+  
       useEffect(() => {
         const img = new Image();
         img.src = msg;
@@ -22,7 +23,7 @@ export const Message = ({msg,isSender,isImage}) => {
     return (
       <div className={`message ${isSender ? "right" : "left"}`}>
         {/* <img src={msg} alt="Image"/> */}
-        {isLoaded && <img src={msg} alt="Image" style={{ display: "block" }} />}
+        {isLoaded && <img src={msg} alt="Image" style={{display:"block"}} onClick={()=>{setPreviewImage(msg); setIsPreview(true)}} />}
       </div>
     )
   }
