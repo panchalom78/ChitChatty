@@ -23,7 +23,7 @@ console.log(process.env.FRONTEND_URL);
 
 app.use(
     cors({
-        origin: "https://chitchatty.vercel.app/",
+        origin: "*",
         methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
         allowedHeaders: ["Content-Type", "Authorization"],
         credentials: true,
@@ -37,14 +37,14 @@ app.use(bodyParser.json())
 const server = createServer(app);
 const io = new Server(server, {
     cors: {
-        origin: "https://chitchatty.vercel.app/",
+        origin: "*",
         methods: ["GET", "POST"],
         credentials: true,
     },
 });
 
 app.options('*', (req, res) => {
-    res.header('Access-Control-Allow-Origin', 'https://chitchatty.vercel.app');
+    res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     res.sendStatus(200);
