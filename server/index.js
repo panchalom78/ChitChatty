@@ -21,37 +21,27 @@ const app = express();
 
 console.log(process.env.FRONTEND_URL);
 
-const options = [
+app.use(
     cors({
-      origin: "*",
-      methods: "*",
-      allowedHeaders: ["Content-Type", "Authorization"],
-      credentials: true,
-    }),
-  ];
-
-  app.use(options)
-
-  app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'https://chitchatty.vercel.app'); // Replace with your actual origin
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-    next();
-  });
+        origin: "https://chitchatty.vercel.app",
+        methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        allowedHeaders: ["Content-Type", "Authorization"],
+        credentials: true,
+    })
+);
 
 
 app.use(express.json())
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json())
 const server = createServer(app);
-const io = new Server(server,{
-    cors:{
-        origin:"*",
-        methods:["GET","POST"],
-        credentials: true
-    }
-})
-
+const io = new Server(server, {
+    cors: {
+        origin: "https://chitchatty.vercel.app",
+        methods: ["GET", "POST"],
+        credentials: true,
+    },
+});
 const __dirname = path.resolve()
 
 connectDb();
