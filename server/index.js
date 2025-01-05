@@ -17,18 +17,18 @@ const port = 3000;
 dotenv.config();
 
 const app = express();
-// app.use(cors())
+app.use(cors())
 
 console.log(process.env.FRONTEND_URL);
 
-app.use(
-    cors({
-        origin: "*",
-        methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-        allowedHeaders: ["Content-Type", "Authorization"],
-        credentials: true,
-    })
-);
+// app.use(
+//     cors({
+//         origin: "*",
+//         methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+//         allowedHeaders: ["Content-Type", "Authorization"],
+//         credentials: true,
+//     })
+// );
 
 
 app.use(express.json())
@@ -43,12 +43,12 @@ const io = new Server(server, {
     },
 });
 
-app.options('*', (req, res) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    res.sendStatus(200);
-});
+// app.options('*', (req, res) => {
+//     res.header('Access-Control-Allow-Origin', '*');
+//     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+//     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+//     res.sendStatus(200);
+// });
 
 connectDb();
 
