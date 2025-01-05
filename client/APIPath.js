@@ -1,5 +1,5 @@
 // http://localhost:3000
-export const host ="";
+export const host =import.meta.env.VITE_REACT_APP_BACKEND_URL;
 
 export const loginPath = `${host}/login`
 export const signPath = `${host}/signIn`
