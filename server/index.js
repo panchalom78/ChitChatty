@@ -17,9 +17,20 @@ const port = 3000;
 dotenv.config();
 
 const app = express();
-app.use(cors())
+// app.use(cors())
 
 console.log(process.env.FRONTEND_URL);
+
+const options = [
+    cors({
+      origin: "*",
+      methods: "*",
+      allowedHeaders: ["Content-Type", "Authorization"],
+      credentials: true,
+    }),
+  ];
+
+  app.use(options)
 
 
 app.use(express.json())
