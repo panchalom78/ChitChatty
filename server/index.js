@@ -21,14 +21,6 @@ app.use(cors())
 
 console.log(process.env.FRONTEND_URL);
 
-// app.use(
-//     cors({
-//         origin: "*",
-//         methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-//         allowedHeaders: ["Content-Type", "Authorization"],
-//         credentials: true,
-//     })
-// );
 
 
 app.use(express.json())
@@ -42,15 +34,6 @@ const io = new Server(server, {
         credentials: true,
     },
 });
-
-// app.options('*', (req, res) => {
-//     res.header('Access-Control-Allow-Origin', '*');
-//     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-//     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-//     res.sendStatus(200);
-// });
-
-
 
 connectDb();
 
@@ -119,13 +102,13 @@ io.on("connection",(socket)=>{
 app.use(route)
 app.use(msgRoute)
 
-// if(process.env.NODE_ENV !== 'production'){
-//     app.use(express.static(path.join(__dirname, '../client/dist')))
+if(process.env.NODE_ENV !== 'production'){
+    app.use(express.static(path.join(__dirname, '../client/dist')))
 
-//     app.get('*', (req, res) => {
-//         res.sendFile(path.join(__dirname, '../client','dist', 'index.html'))
-//     })
-// }
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname, '../client','dist', 'index.html'))
+    })
+}
 
 server.listen(port,()=>{
     console.log(`Listening on port ${port}`);
