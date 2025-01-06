@@ -11,6 +11,11 @@ import { getUserData } from "./controllers/authController.js"
 import connectDb from './db.js'
 import path from 'path'
 import dotenv from 'dotenv';
+import { fileURLToPath } from 'url';
+
+// Resolve __dirname
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 
 const port = 3000;
