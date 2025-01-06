@@ -50,12 +50,7 @@ const io = new Server(server, {
 //     res.sendStatus(200);
 // });
 
-app.options('*', (req, res) => {
-    res.header('Access-Control-Allow-Origin', 'https://chitchatty.vercel.app');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    res.sendStatus(200); // Respond with HTTP 200 status
-});
+
 
 connectDb();
 
