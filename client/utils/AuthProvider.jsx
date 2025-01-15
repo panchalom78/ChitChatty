@@ -14,7 +14,7 @@ const AuthProvider = ({children})=>{
         <AuthContext.Provider value={{isSignedIn,user,setUser,signIn,signOut}}>
             {children}
         </AuthContext.Provider>
-    )
+    )   
 }
 
 const useAuth = () => {

@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useRef, createContext } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import React, { useEffect, useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { io } from "socket.io-client";
 import "./Home.css";
 import { Contact } from "../Contact/Contact";
@@ -15,7 +15,7 @@ import UpdateIcon from "@mui/icons-material/Update";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 export const Home = () => {
-  const { user } = useAuth();
+  const { user,setUser } = useAuth();
   const navigate = useNavigate();
   const [contacts, setContacts] = useState([]);
   const [requests, setRequests] = useState([]);
@@ -28,18 +28,54 @@ export const Home = () => {
 
   
 
-
   useEffect(() => {
+    console.log("Hello");
+
+    
+    const getData1 = async() =>{
+      try {
+        const data = await axios.get("http://localhost:3000/login/sucess", { withCredentials: true });
+        console.log(data.data);
+        if(data.data.value && user===null){
+          setUser(data.data.user.user); 
+        }
+      } catch (error) {
+        alert(error)
+        navigate("/");
+      }
+    }
+    
+    getData1()
     socket.current = io(host);
-    socket.current.emit("addUser", { id: user.id });
+    if(user){
+      socket.current.emit("addUser", { id: user?.id });
+    }
 
     async function getR() {
-      const data = await axios.post(getReq, { id: user.id });
+      const data = await axios.post(getReq, { id: user?.id });
       console.log(data.data);
       setRequests(data.data);
     }
     getR();
   }, []);
+
+  useEffect(() => {
+    const fetchContacts = async () => {
+      try {
+        if (user) { // Only fetch contacts if `user` is set
+          const data1 = await axios.get(`${getUsers}/${user.id}`);
+          socket.current.emit("addUser", { id: user?.id });
+          console.log(data1.data);
+          setContacts(data1.data);
+          console.log(user); 
+        }
+      } catch (err) {
+        console.error("Error fetching contacts:", err);
+      }
+    };
+  
+    fetchContacts();
+  }, [user]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -87,14 +123,6 @@ export const Home = () => {
     };
   }, []);
 
-  useEffect(() => {
-    async function getData() {
-      const data = await axios.get(`${getUsers}/${user.id}`);
-      setContacts(data.data);
-    }
-    getData();
-  }, []);
-
   function setChat(c) {
     setCurrentChat(c);
     if (isMobileView) {
@@ -118,7 +146,7 @@ export const Home = () => {
   };
 
   const handleSendReq = (rId) => {
-    socket.current.emit("sendReq", { sender: user.id, receiver: rId });
+    socket.current.emit("sendReq", { sender: user?.id, receiver: rId });
   };
 
   const handleMsg = (msg, senderId) => {
@@ -145,7 +173,7 @@ export const Home = () => {
     <div className="home">
       {isOpen && (
         <AddFriend
-          userId={user.id}
+          userId={user?.id}
           setContacts={setContacts}
           contacts={contacts}
           setIsOpen={setIsOpen}
@@ -153,7 +181,7 @@ export const Home = () => {
           setRequests={setRequests}
           handleSendReq={handleSendReq}
           socket={socket}
-          name={user.user}
+          name={user?.user}
         />
       )}
       <nav className="homeNav">
@@ -181,11 +209,11 @@ export const Home = () => {
             ))}
             <div className="userProfile">
               <div className="userPic">
-                <div style={{ backgroundImage: `url(${user.profile})` }}></div>
+                <div style={{ backgroundImage: `url(${user?.profile})` }}></div>
               </div>
               <div className="userInfo">
-                <div className="userName">{user.username}</div>
-                <div className="userAbout">{user.aboutme}</div>
+                <div className="userName">{user?.username}</div>
+                <div className="userAbout">{user?.aboutme}</div>
               </div>
               <div className="update">
                 <button
@@ -237,12 +265,12 @@ export const Home = () => {
               <div className="userProfile">
                 <div className="userPic">
                   <div
-                    style={{ backgroundImage: `url(${user.profile})` }}
+                    style={{ backgroundImage: `url(${user?.profile})` }}
                   ></div>
                 </div>
                 <div className="userInfo">
-                  <div className="userName">{user.username}</div>
-                  <div className="userAbout">{user.aboutme}</div>
+                  <div className="userName">{user?.username}</div>
+                  <div className="userAbout">{user?.aboutme}</div>
                 </div>
                 <div className="update">
                   <button

@@ -9,6 +9,8 @@ import ProtectedRoute from "../utils/ProtectedRoute.jsx";
 import { GetInfo } from "./GetInfo/GetInfo.jsx";
 import { ProfileUpdate } from "./ProfileUpdate/ProfileUpdate.jsx";
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import { ForgetPass } from "./ForgetPass/ForgetPass.jsx";
+import { ResetPass } from "./ResetPass/ResetPass.jsx";
 
 
 const router = new createBrowserRouter([
@@ -27,9 +29,7 @@ const router = new createBrowserRouter([
   {
     path: "home",
     element: (
-      <ProtectedRoute>
-        <Home />
-      </ProtectedRoute>
+        <Home/>
     ),
   },
   {
@@ -39,12 +39,20 @@ const router = new createBrowserRouter([
   {
     path:"updateProfile",
     element:<ProfileUpdate/>
+  },
+  {
+    path:"forgetpass",
+    element:<ForgetPass/>
+  },
+  {
+    path:"resetpass",
+    element:<ResetPass/>
   }
 ]);
 
 createRoot(document.getElementById("root")).render(
   <>
-  <GoogleOAuthProvider clientId="343231360093-98seilv4c2kh4ojs2q9qcomenvag3o1g.apps.googleusercontent.com">
+  <GoogleOAuthProvider clientId="893628773417-u55rk7qohupju507k93rg09ues8h2fv2.apps.googleusercontent.com">
     <AuthProvider>
       <RouterProvider router={router} />
     </AuthProvider>

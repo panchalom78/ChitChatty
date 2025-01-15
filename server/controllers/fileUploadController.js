@@ -6,25 +6,38 @@ import { addImage } from "./messageController.js";
 async function uploadProfile(req, res, next) {
   try {
     console.log(req.body);
+    let data={};
 
-    const f = req.file;
+    if(req.file){
+      const f = req.file;
     console.log(f);
 
     const path = await uploadPhoto(f.path, req.body.id);
     await addInfo(req.body, path);
-    const data = {
-      id: req.body.id,
-      username: req.body.username,
-      aboutme: req.body.aboutme,
-      profile: path,
-    };
-
+    
     deleteImage(f.filename, "./temp", (err, message) => {
       if (err) {
         console.error(err.message);
       } else console.log(message);
     });
-
+    data = {
+      id: req.body.id,
+      username: req.body.username,
+      aboutme: req.body.aboutme,
+      profile: path,
+    };
+    }
+    
+    else {
+     await addInfo(req.body,req.body.photoLink) 
+    data = {
+      id: req.body.id,
+      username: req.body.username,
+      aboutme: req.body.aboutme,
+      profile: req.body.photoLink,
+    };
+    }
+    
     res.json(data);
   } catch (ex) {
     next(ex);

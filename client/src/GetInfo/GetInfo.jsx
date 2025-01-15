@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { profile, getUserByName } from "../../APIPath";
 import "./GetInfo.css";
@@ -9,12 +9,14 @@ import { useAuth } from "../../utils/AuthProvider";
 import profilePhoto from "../../photos/image.png";
 
 export const GetInfo = () => {
+
   const [photo, setPhoto] = useState(null);
   const [username, setUserName] = useState("");
   const [aboutme, setAboutMe] = useState("");
   const [isPhotoSet, setIsPhotoSet] = useState(false);
   const [photoURL, setPhotoURL] = useState(null);
   const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
   const { user, setUser } = useAuth();
 
@@ -50,7 +52,12 @@ export const GetInfo = () => {
     try {
       e.preventDefault();
       const formData = new FormData();
-      formData.append("photo", photo);
+      if(photoURL === user.profile){
+        formData.append('photoLink',photoURL)
+      }
+      else{
+        formData.append("photo", photo);
+      }
       formData.append("username", username);
       formData.append("aboutme", aboutme);
       formData.append("id", user.id);
@@ -64,9 +71,27 @@ export const GetInfo = () => {
       setUser(info);
       navigate("/home");
     } catch (error) {
-      console.log(error.message);
+      console.log(error);
     }
   };
+
+  const getUser = async ()=>{
+    try {
+      const data = await axios.get("http://localhost:3000/login/sucess", { withCredentials: true });
+      console.log(data.data);
+      setUser(data.data.user.user)
+      setUserName(data.data.user.user.username)
+      setPhotoURL(data.data.user.user.profile)
+      setIsPhotoSet(true)
+    } catch (error) {
+      alert(error)
+      navigate("/");
+    }
+  }
+
+  useEffect(()=>{
+    getUser();
+  },[])
 
   return (
     <>

@@ -5,9 +5,9 @@ import { getMsg, uploadImage } from "../../APIPath";
 import axios from "axios";
 import EmojiComponet from "../Emoji/EmojiComponet";
 import { ChatInput } from "../ChatInput/ChatInput";
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from "@mui/icons-material/Close";
 
-export const Chat = ({ user, contact, socket, handleMsg ,isMobileView}) => {
+export const Chat = ({ user, contact, socket, handleMsg, isMobileView }) => {
   const ref = useRef(null);
 
   const [messages, setMessages] = useState([]);
@@ -40,6 +40,7 @@ export const Chat = ({ user, contact, socket, handleMsg ,isMobileView}) => {
   }, [messages]);
 
   function addM({ msg, id }) {
+    console.log("MSG RECeived");
     setMessages((m) => {
       return [...m, { msg: msg, sender: id, isImage: false }];
     });
@@ -133,6 +134,8 @@ export const Chat = ({ user, contact, socket, handleMsg ,isMobileView}) => {
 
   const sendMessage = (messageData) => {
     socket.current.emit("send-msg", messageData);
+    console.log(user);
+
     setMessages((msg) => [
       ...msg,
       { msg: messageData.msg, sender: user.id, isImage: false },
@@ -169,14 +172,21 @@ export const Chat = ({ user, contact, socket, handleMsg ,isMobileView}) => {
             setPreviewImage={setPreviewImage}
           />
         ))}
-        {isEmojiOpen && <EmojiComponet setText={setText} isMobileView={isMobileView} />}
+        {isEmojiOpen && (
+          <EmojiComponet setText={setText} isMobileView={isMobileView} />
+        )}
 
         <div className="scroll" ref={ref}></div>
 
         {isPreview && (
           <div className="preview-image">
-            <button className="close" onClick={()=>{setIsPreview(false)}}>
-            <CloseIcon/>
+            <button
+              className="close"
+              onClick={() => {
+                setIsPreview(false);
+              }}
+            >
+              <CloseIcon />
             </button>
             <img src={previewImage}></img>
           </div>

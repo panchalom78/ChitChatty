@@ -15,4 +15,6 @@ export const getUserByName = `${host}/userByName`
 export const uploadImage = `${host}/uploadImage`
 export const updateWithProfile = `${host}/updatewithprofile`
 export const updateWithOutProfile = `${host}/updatewithoutprofile`
-
+export const forgetPass = `${host}/forget`
+export const resetPassword  = `${host}/reset`
+export const googleLogin = `${host}/google`

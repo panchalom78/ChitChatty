@@ -7,7 +7,8 @@ const user = new mongoose.Schema({
     Username : String,
     Password : String,
     AboutMe  : String,
-    ProfilePic : String
+    ProfilePic : String,
+    GoogleId : {type:String , default: null}
 })
  
 const User = new mongoose.model("User",user)

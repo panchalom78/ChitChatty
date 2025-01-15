@@ -72,9 +72,9 @@ export const SignUp = () => {
                 id="password"
                 onChange={updateChange}
               />
-              {/* <div className="forgot">
-              <a rel="noopener noreferrer" href="#">Forgot Password ?</a>
-            </div> */}
+              <div className="forgot">
+              <Link to="/forgetpass">Forgot Password ?</Link>
+            </div>
             </div>
             {/* <button className="sign">Sign in</button> */}
             <input type="submit" value="Log in" className="sign" />
