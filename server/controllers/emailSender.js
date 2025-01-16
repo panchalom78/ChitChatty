@@ -1,12 +1,15 @@
 import nodemailer from "nodemailer";
+import dotenv from "dotenv";
+
+dotenv.config();  // Load environment variables from.env file.
 
 const transport = nodemailer.createTransport({
   secure: true,
   host: "smtp.gmail.com",
   port: 465,
   auth: {
-    user: "chitchatty78@gmail.com",
-    pass: "hvlvmbfhnonqetcs",
+    user: process.env.EMAIL_ID,
+    pass: process.env.EMAIL_PASS,
   },
 });
 
