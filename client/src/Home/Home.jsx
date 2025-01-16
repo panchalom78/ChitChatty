@@ -34,7 +34,7 @@ export const Home = () => {
     
     const getData1 = async() =>{
       try {
-        const data = await axios.get("http://localhost:3000/login/sucess", { withCredentials: true });
+        const data = await axios.get(`${host}/login/sucess`, { withCredentials: true });
         console.log(data.data);
         if(data.data.value && user===null){
           setUser(data.data.user.user); 

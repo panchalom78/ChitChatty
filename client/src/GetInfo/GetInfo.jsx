@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { profile, getUserByName } from "../../APIPath";
+import { profile, getUserByName, host } from "../../APIPath";
 import "./GetInfo.css";
 import { useNavigate } from "react-router-dom";
 import { Flip, ToastContainer, toast } from "react-toastify";
@@ -77,7 +77,7 @@ export const GetInfo = () => {
 
   const getUser = async ()=>{
     try {
-      const data = await axios.get("http://localhost:3000/login/sucess", { withCredentials: true });
+      const data = await axios.get(`${host}/login/sucess`, { withCredentials: true });
       console.log(data.data);
       setUser(data.data.user.user)
       setUserName(data.data.user.user.username)

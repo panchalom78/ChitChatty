@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
-import { googleLogin, loginPath } from "../../APIPath";
+import { googleLogin, host, loginPath } from "../../APIPath";
 import { Flip, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useAuth } from "../../utils/AuthProvider";
@@ -70,7 +70,7 @@ export const Login = () => {
 
   const login =()=>{  
     signIn();
-    window.open('http://localhost:3000/auth/google/callback',"_self");
+    window.open(`${host}/auth/google/callback`,"_self");
   }
 
   return (
