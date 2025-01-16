@@ -1,5 +1,5 @@
 // http://localhost:3000
-export const host ="";
+export const host ="https://api-chitchatty.onrender.com";
 
 export const loginPath = `${host}/login`
 export const signPath = `${host}/signIn`
