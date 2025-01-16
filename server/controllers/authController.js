@@ -42,7 +42,7 @@ async function signIn(req, res, next) {
       }
       if (await argon2.verify(getUser.Password, Password)) {
         if (getUser.ProfilePic === undefined || getUser.ProfilePic === null) {
-          res.json({ isInfoSet: false, value: true, id: getUser._id });
+          res.json({ isInfoSet: false, value: true, user:{id: getUser._id} });
         } else
           res.json({
             isInfoSet: true,
