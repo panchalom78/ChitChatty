@@ -78,11 +78,13 @@ export const GetInfo = () => {
   const getUser = async ()=>{
     try {
       const data = await axios.get(`${host}/login/sucess`, { withCredentials: true });
-      console.log(data.data);
-      setUser(data.data.user.user)
-      setUserName(data.data.user.user.username)
-      setPhotoURL(data.data.user.user.profile)
-      setIsPhotoSet(true)
+      if(data.data.value){
+        console.log(data.data);
+        setUser(data.data.user.user)
+        setUserName(data.data.user.user.username)
+        setPhotoURL(data.data.user.user.profile)
+        setIsPhotoSet(true)
+      }
     } catch (error) {
       alert(error)
       navigate("/");
