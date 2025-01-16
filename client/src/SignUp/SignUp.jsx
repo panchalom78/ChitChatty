@@ -5,6 +5,7 @@ import { signPath } from "../../APIPath";
 import { useAuth } from "../../utils/AuthProvider";
 import styled from "styled-components";
 import { Flip, ToastContainer, toast } from "react-toastify";
+import { set } from "mongoose";
 
 export const SignUp = () => {
   const [user, setUser1] = useState({});
@@ -36,9 +37,7 @@ export const SignUp = () => {
 
     if (isUser.value) {
       signIn();
-      if (isUser.isInfoSet) {
-        setUser(isUser.user);
-      }
+      setUser(isUser.user)
     }
 
     isUser.notUser
