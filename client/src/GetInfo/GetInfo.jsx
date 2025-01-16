@@ -52,7 +52,7 @@ export const GetInfo = () => {
     try {
       e.preventDefault();
       const formData = new FormData();
-      if(photoURL === user.profile){
+      if(photoURL === user?.profile){
         formData.append('photoLink',photoURL)
       }
       else{
