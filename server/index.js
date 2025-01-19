@@ -40,6 +40,12 @@ app.use(session({
     secret: 'secret',
     resave: false,
     saveUninitialized: true,
+    cookie: {
+        secure: process.env.NODE_ENV === "production",
+        httpOnly: true,
+        sameSite: "lax",
+        maxAge: 1000 * 60 * 60 * 24,
+    }
 }))
 
 app.use(passport.initialize())
@@ -107,9 +113,7 @@ app.get("/auth/google/callback",passport.authenticate("google",{
 )
 
 app.get("/login/sucess",async(req,res)=>{
-
     if(req.user){
-        
         res.status(200).json({value:true,user:req.user})
     }else{
         res.status(200).json({value:false})

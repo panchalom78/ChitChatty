@@ -27,7 +27,6 @@ export const Chat = ({ user, contact, socket, handleMsg, isMobileView }) => {
         to: contact.id,
         from: user.id,
       });
-      console.log(response.data);
       setMessages(response.data);
     }
     getMsgs();
@@ -40,18 +39,15 @@ export const Chat = ({ user, contact, socket, handleMsg, isMobileView }) => {
   }, [messages]);
 
   function addM({ msg, id }) {
-    console.log("MSG RECeived");
     setMessages((m) => {
       return [...m, { msg: msg, sender: id, isImage: false }];
     });
   }
 
   useEffect(() => {
-    console.log("addChat");
 
     const handleAddMsg = ({ msg, id }) => {
       const contactId = contact.id;
-      console.log(contactId, id);
 
       if (contactId === id) {
         addM({ msg, id });
@@ -70,7 +66,6 @@ export const Chat = ({ user, contact, socket, handleMsg, isMobileView }) => {
 
   useEffect(() => {
     const handleAddImage = ({ msg, id }) => {
-      console.log(contact.id, id);
 
       if (contact.id === id) {
         setMessages((prev) => {
@@ -109,7 +104,6 @@ export const Chat = ({ user, contact, socket, handleMsg, isMobileView }) => {
       formData.append("receiver", contact.id);
 
       const data = await axios.post(uploadImage, formData);
-      console.log(data.data);
       const msg = data.data.link;
 
       setMessages((prev) => {
@@ -134,7 +128,6 @@ export const Chat = ({ user, contact, socket, handleMsg, isMobileView }) => {
 
   const sendMessage = (messageData) => {
     socket.current.emit("send-msg", messageData);
-    console.log(user);
 
     setMessages((msg) => [
       ...msg,
@@ -206,7 +199,6 @@ export const Chat = ({ user, contact, socket, handleMsg, isMobileView }) => {
               setIsImageSet(false);
               setPreview("");
               setImage(null);
-              console.log("hgd");
             }}
           >
             X

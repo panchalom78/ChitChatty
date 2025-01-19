@@ -11,7 +11,6 @@ export const ForgetPass = () => {
         // Send email to user with password reset link
         const data = await axios.post(forgetPass,{Email: email})
 
-        console.log(data.data.value);
         if(data.data.value){
           alert('Password reset link sent to your registered email');
         }

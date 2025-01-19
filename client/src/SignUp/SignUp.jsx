@@ -11,6 +11,7 @@ export const SignUp = () => {
   const [user, setUser1] = useState({});
   const navigate = useNavigate();
   var { signIn, setUser } = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
 
   const toastOptions = {
     position: "bottom-right",
@@ -28,25 +29,36 @@ export const SignUp = () => {
   }
 
   async function validateUser(e) {
-    e.preventDefault();
-    const data = { Email: user.Email, Password: user.Password };
+    try {
+      setIsLoading(true);
 
-    const checkUser = await axios.post(signPath, data);
+      e.preventDefault();
+      const data = { Email: user.Email, Password: user.Password };
 
-    const isUser = checkUser.data;
+      const checkUser = await axios.post(signPath, data);
 
-    if (isUser.value) {
-      signIn();
-      setUser(isUser.user)
+      const isUser = checkUser.data;
+
+      if (isUser.value) {
+        signIn();
+        setUser(isUser.user);
+      }
+
+      isUser.notUser
+        ? toast.error("No user found", toastOptions)
+        : isUser.value
+        ? isUser.isInfoSet
+          ? navigate("/home")
+          : navigate("/profile")
+        : toast.error("Wrong credentials", toastOptions);
+    } catch (error) {
+      toast.error(
+        "An error occurred while validating. Please try again later.",
+        toastOptions
+      );
+    } finally {
+      setIsLoading(false);
     }
-
-    isUser.notUser
-      ? toast.error("No user found",toastOptions)
-      : isUser.value
-      ? isUser.isInfoSet
-        ? navigate("/home")
-        : navigate("/profile")
-      : toast.error("Wrong credentials",toastOptions)
   }
   return (
     <>
@@ -72,11 +84,17 @@ export const SignUp = () => {
                 onChange={updateChange}
               />
               <div className="forgot">
-              <Link to="/forgetpass">Forgot Password ?</Link>
-            </div>
+                <Link to="/forgetpass">Forgot Password ?</Link>
+              </div>
             </div>
             {/* <button className="sign">Sign in</button> */}
-            <input type="submit" value="Log in" className="sign" />
+            <button
+              type="submit"
+              className={`sign ${isLoading ? "loading" : ""}`}
+              disabled={isLoading}
+            >
+              Log In
+            </button>
           </form>
           {/* <div className="social-message">
           <div className="line" />
@@ -179,7 +197,7 @@ const StyledWrapper = styled.div`
   }
 
   .sign {
-    display: block;
+    position: relative;
     width: 100%;
     background-color: rgba(167, 139, 250, 1);
     padding: 0.75rem;
@@ -188,6 +206,39 @@ const StyledWrapper = styled.div`
     border: none;
     border-radius: 0.375rem;
     font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth hover transition */
+    display: inline-block;
+  }
+
+  .sign.loading {
+    background-color: #ccc; /* Gray out the button while loading */
+    color: #ccc;
+  }
+
+  .loading:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30px;
+    height: 30px;
+    margin: -12px 0 0 -12px;
+    border: 4px solid #fff;
+    border-top: 4px solid rgba(17, 24, 39, 1);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    box-sizing: border-box;
+    transform-origin: 50% 50%;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
 
   .social-message {

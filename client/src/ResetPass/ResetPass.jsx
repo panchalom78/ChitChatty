@@ -14,7 +14,6 @@ export const ResetPass = () => {
             alert("pass not match")
         }
         const data =  await axios.post(resetPassword,{token,pass:resetPass.pass})
-        console.log(data.data);
         if(data.data.value){
           alert("Password reset successful")
           window.location.href = "/login";

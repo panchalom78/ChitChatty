@@ -14,9 +14,7 @@ export const ReqList = ({
 }) => {
   const handleClick = async (val, user, friend, index) => {
     // const data = await axios.post(handelReq, { val, user, friend })
-    // console.log(data.data);
     socket.current.emit("handelReq", { user, friend, val, username });
-    console.log("hiiiiiiiiiiiiiiiiii");
 
     setRequests((req) => {
       const arr = [...req];
@@ -26,7 +24,6 @@ export const ReqList = ({
     if (val) {
       const info = await axios.get(`${getUser}/${friend}`);
       const data = info.data;
-      console.log(data);
 
       setContacts((con) => {
         return [

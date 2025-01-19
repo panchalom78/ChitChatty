@@ -33,7 +33,6 @@ export const AddFriend = ({
   const [isReq, setIsReq] = useState(true);
 
   const handleClick = async () => {
-    console.log("Click");
     if (friend === "") {
       toast.error("Input feild cannot be empty", toastOptions);
       return;
@@ -47,7 +46,6 @@ export const AddFriend = ({
       friends: friends,
     });
     setSearch(data.data);
-    console.log(data.data);
     setIsReq(false);
   };
 

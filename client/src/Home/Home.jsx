@@ -29,13 +29,11 @@ export const Home = () => {
   
 
   useEffect(() => {
-    console.log("Hello");
 
     
     const getData1 = async() =>{
       try {
         const data = await axios.get(`${host}/login/sucess`, { withCredentials: true });
-        console.log(data.data);
         if(data.data.value && user===null){
           setUser(data.data.user.user); 
         }
@@ -53,7 +51,6 @@ export const Home = () => {
 
     async function getR() {
       const data = await axios.post(getReq, { id: user?.id });
-      console.log(data.data);
       setRequests(data.data);
     }
     getR();
@@ -65,9 +62,7 @@ export const Home = () => {
         if (user) { // Only fetch contacts if `user` is set
           const data1 = await axios.get(`${getUsers}/${user.id}`);
           socket.current.emit("addUser", { id: user?.id });
-          console.log(data1.data);
           setContacts(data1.data);
-          console.log(user); 
         }
       } catch (err) {
         console.error("Error fetching contacts:", err);
@@ -93,7 +88,6 @@ export const Home = () => {
   useEffect(() => {
     const handleAddReq = async ({ sender }) => {
       const data = await axios.get(`${getUser}/${sender}`);
-      console.log(data);
 
       setRequests((prev) => {
         const arr = [...prev];
@@ -111,11 +105,9 @@ export const Home = () => {
     const handleContact = ({ id, name, profile, aboutme }) => {
       setContacts((prev) => {
         const arr = [...prev, { id, username: name, profile, aboutme }];
-        console.log(arr);
 
         return arr;
       });
-      console.log(contacts);
     };
     socket.current.on("addContact", handleContact);
     return () => {
@@ -150,14 +142,12 @@ export const Home = () => {
   };
 
   const handleMsg = (msg, senderId) => {
-    console.log("OM");
 
     setContacts((prev) => {
       const index = prev.findIndex((c) => c.id === senderId);
       const arr = [];
       arr.push(prev[index]);
       const arr2 = prev.slice(0, index).concat(prev.slice(index + 1));
-      console.log(arr2);
 
       const arr3 = arr.concat(arr2);
       arr3[0].receive = true;

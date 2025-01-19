@@ -35,8 +35,6 @@ export const ProfileUpdate = () => {
     if(url!==user.profile && url!== user.profilePhoto){
       formData.append("photo",profileImage)
       data  = await axios.post(updateWithProfile,formData)
-      console.log("hii");
-      console.log(data.data);
     }
     else{
       let input  = {id:user.id}

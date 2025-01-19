@@ -62,11 +62,9 @@ export const GetInfo = () => {
       formData.append("aboutme", aboutme);
       formData.append("id", user.id);
 
-      console.log(formData);
 
       const data = await axios.post(profile, formData);
       const info = data.data;
-      console.log(info);
 
       setUser(info);
       navigate("/home");
@@ -79,7 +77,6 @@ export const GetInfo = () => {
     try {
       const data = await axios.get(`${host}/login/sucess`, { withCredentials: true });
       if(data.data.value){
-        console.log(data.data);
         setUser(data.data.user.user)
         setUserName(data.data.user.user.username)
         setPhotoURL(data.data.user.user.profile)
