@@ -34,8 +34,8 @@ route.post("/getRequests", authMiddleware, getReq);
 route.post("/handleReq", authMiddleware, handelRequest);
 route.get("/userInfo/:id", authMiddleware, getUsers);
 route.post("/userByName", authMiddleware, getUserByName);
-route.post("/forget", authMiddleware, forgotPassword);
-route.post("/reset", authMiddleware, resetPassword);
+route.post("/forget", forgotPassword);
+route.post("/reset", resetPassword);
 route.get("/logoutuser", authMiddleware, logOutUser);
 
 export default route;

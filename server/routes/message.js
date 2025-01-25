@@ -9,7 +9,7 @@ const router = express.Router()
 
 router.use(authMiddleware)
 
-router.post('/getmessage',authMiddleware,getMessages)
+router.post('/getmessage',getMessages)
 router.post('/profile',conditionalUpload(),uploadProfile)
 router.post('/uploadImage',conditionalUpload(),uploadImage)
 router.post('/updatewithprofile',conditionalUpload(),updateProfileWithProfile)
