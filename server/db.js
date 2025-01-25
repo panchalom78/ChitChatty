@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const url = process.env.IS_PRODUCTION==='yes' ? process.env.MONGO_LOCAL : process.env.MONGO_URI
+const url = process.env.IS_PRODUCTION==='yes' ? process.env.MONGO_URI : process.env.MONGO_LOCAL
  
 function connectDb(){
     try{
