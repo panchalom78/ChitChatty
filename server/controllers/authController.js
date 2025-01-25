@@ -3,6 +3,11 @@ import Contact from "../models/Contact.js";
 import argon2 from "argon2";
 import jwt from "jsonwebtoken";
 import emailSender from "./emailSender.js";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+const isProduction = process.env.IS_PRODUCTION === "yes";
 
 async function login(req, res, next) {
   try {
@@ -23,11 +28,15 @@ async function login(req, res, next) {
         expiresIn: "2h",
       });
       console.log(user);
+
       res.cookie("token", token, {
-        httpOnly: true
+        httpOnly: true,
+        secure: isProduction,
+        sameSite: isProduction ? "None" : "Lax", // Lax for local dev
+        maxAge: 1000 * 60 * 60 * 24,
       });
 
-      res.json({ value: false});
+      res.json({ value: false });
     }
   } catch (ex) {
     next(ex);
@@ -52,7 +61,10 @@ async function signIn(req, res, next) {
         });
 
         res.cookie("token", token, {
-          httpOnly: true          
+          httpOnly: true,
+          secure: isProduction,
+          sameSite: isProduction ? "None" : "Lax", // Lax for local dev
+          maxAge: 1000 * 60 * 60 * 24,
         });
 
         if (getUser.ProfilePic === undefined || getUser.ProfilePic === null) {
@@ -84,21 +96,24 @@ async function signIn(req, res, next) {
 }
 
 async function authenticateUser(req, res) {
-  if(req.user){
-    return res.json({value:true})
+  if (req.user) {
+    return res.json({ value: true });
   }
-  return res.json({value:false})
+  return res.json({ value: false });
 }
 
-async function getUserInfo(req, res,next) {
+async function getUserInfo(req, res, next) {
   try {
-    const user = await User.findOne({_id:req.user},{Password:0,Email:0})
+    const user = await User.findOne(
+      { _id: req.user },
+      { Password: 0, Email: 0 }
+    );
     return res.json({
-      id:user._id,
-      username:user.Username,
-      about:user.AboutMe,
-      profile: user.ProfilePic
-    })
+      id: user._id,
+      username: user.Username,
+      about: user.AboutMe,
+      profile: user.ProfilePic,
+    });
   } catch (error) {
     next(error);
   }
@@ -178,9 +193,9 @@ async function getUserData(id) {
   return data;
 }
 
-const addInfo = async function (body, path,id) {
+const addInfo = async function (body, path, id) {
   const data = await User.updateOne(
-    { _id:id },
+    { _id: id },
     { Username: body.username, AboutMe: body.aboutme, ProfilePic: path }
   );
 };
@@ -258,7 +273,7 @@ const addNewUser = async function (data) {
 const logOutUser = async function (req, res) {
   res.clearCookie("token");
   return res.json({ value: false });
-}
+};
 
 export {
   login,
@@ -277,5 +292,5 @@ export {
   addNewUser,
   getUserInfo,
   authenticateUser,
-  logOutUser
+  logOutUser,
 };
