@@ -4,6 +4,7 @@ export const host =import.meta.env.VITE_REACT_BACKEND_URL;
 
 export const loginPath = `${host}/login`
 export const signPath = `${host}/signIn`
+export const userInfo = `${host}/user`
 export const getUsers = `${host}/users`
 export const getMsg = `${host}/getmessage`
 export const getFriend = `${host}/friends`  
@@ -19,3 +20,6 @@ export const updateWithOutProfile = `${host}/updatewithoutprofile`
 export const forgetPass = `${host}/forget`
 export const resetPassword  = `${host}/reset`
 export const googleLogin = `${host}/google`
+export const authenticateUser = `${host}/authenticate`
+export const logOutUser = `${host}/logoutuser`
+export const googleLogOut = `${host}/logout`

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { profile, getUserByName, host } from "../../APIPath";
+import axios from "../../utils/axiosInstance";
+import { profile, getUserByName, host, userInfo } from "../../APIPath";
 import "./GetInfo.css";
 import { useNavigate } from "react-router-dom";
 import { Flip, ToastContainer, toast } from "react-toastify";
@@ -60,13 +60,9 @@ export const GetInfo = () => {
       }
       formData.append("username", username);
       formData.append("aboutme", aboutme);
-      formData.append("id", user.id);
-
 
       const data = await axios.post(profile, formData);
       const info = data.data;
-
-      setUser(info);
       navigate("/home");
     } catch (error) {
       console.log(error);
@@ -75,13 +71,21 @@ export const GetInfo = () => {
 
   const getUser = async ()=>{
     try {
-      const data = await axios.get(`${host}/login/sucess`, { withCredentials: true });
-      if(data.data.value){
-        setUser(data.data.user.user)
-        setUserName(data.data.user.user.username)
-        setPhotoURL(data.data.user.user.profile)
+      const data = await axios.get(userInfo);
+      if(data.data.username){
+        setUserName(data.data.username)        
+      }
+      if(data.data.profile){
+        setPhotoURL(data.data.profile)
         setIsPhotoSet(true)
       }
+
+      // if(data.data.value){
+      //   setUser(data.data.user.user)
+      //   setUserName(data.data.user.user.username)
+      //   setPhotoURL(data.data.user.user.profile)
+      //   setIsPhotoSet(true)
+      // }
     } catch (error) {
       alert(error)
       navigate("/");

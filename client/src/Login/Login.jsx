@@ -1,13 +1,26 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useState,useEffect } from "react";
+import axios from "../../utils/axiosInstance";
+
 import { useNavigate, Link } from "react-router-dom";
-import { host, loginPath } from "../../APIPath";
+import { host, loginPath ,authenticateUser} from "../../APIPath";
 import { Flip, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useAuth } from "../../utils/AuthProvider";
 import styled from "styled-components";
 
 export const Login = () => {
+
+  const checkUser = async()=>{
+    const verify = await axios.get(authenticateUser)
+    if(verify.data.value){
+      window.location.href = '/home'
+    }
+  }
+  useEffect(()=>{
+    checkUser();
+  },[])
+
+
   const { signIn, setUser } = useAuth();
 
   const toastOptions = {
@@ -63,8 +76,6 @@ export const Login = () => {
       if (value) {
         toast.info("User already exists", toastOptions);
       } else {
-        signIn();
-        setUser({ id: isUser.data.id });
         navigate("/profile");
       }
     } catch (error) {
@@ -75,7 +86,6 @@ export const Login = () => {
   }
 
   const login = () => {
-    signIn();
     window.open(`${host}/auth/google/callback`, "_self");
   };
 

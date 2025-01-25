@@ -1,6 +1,6 @@
 import React from "react";
 import "./ReqList.css";
-import axios from "axios";
+import axios from "../../utils/axiosInstance";
 import { getUser } from "../../APIPath";
 import DoneIcon from "@mui/icons-material/Done";
 import CloseIcon from "@mui/icons-material/Close";

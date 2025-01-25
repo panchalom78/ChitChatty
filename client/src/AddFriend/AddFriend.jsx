@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import "./AddFriend.css";
 import SearchIcon from "@mui/icons-material/Search";
-import SendIcon from "@mui/icons-material/Send";
 import { SearchList } from "../SearchList/SearchList";
 import { ReqList } from "../ReqList/ReqList";
-import axios from "axios";
+import axios from "../../utils/axiosInstance";
 import { getFriend, addFriend } from "../../APIPath";
 import { Flip, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

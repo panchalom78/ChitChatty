@@ -15,6 +15,8 @@ import { fileURLToPath } from 'url';
 import passport from "passport"
 import session from "express-session"
 import { Strategy } from "passport-google-oauth20"
+import cookieParser from "cookie-parser"
+import generateToken from "./utils/jwtToken.js"
 // Resolve __dirname
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -31,13 +33,12 @@ app.use(cors({
 
 console.log(process.env.FRONTEND_URL);
 
-
-
 app.use(express.json())
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json())
+app.use(cookieParser())
 app.use(session({
-    secret: 'secret',
+    secret: process.env.JWT_SECRET,
     resave: false,
     saveUninitialized: true,
     cookie: {
@@ -59,11 +60,9 @@ passport.use(new Strategy(
         scope:["profile","email"]
     },
     async (accessToken,refreshToken,profile,done)=>{
-        console.log(profile);
         const data = await getUserByGoogleId(profile.id)
         if(data!==null){
             console.log("User Data",data);
-            
             return done(null, {user:data,isNew:false})
         }
         else{
@@ -77,7 +76,6 @@ passport.use(new Strategy(
             
             const data1 = await addNewUser(newUser);
             console.log(data1);
-            
             return done(null,{user:data1,isNew:true})
         }
     }
@@ -102,6 +100,10 @@ app.get("/auth/google",passport.authenticate("google",{scope:["profile","email"]
 app.get("/auth/google/callback",passport.authenticate("google",{
     failureRedirect:process.env.FRONTEND_URL}),
     (req,res)=>{
+        console.log("Google req",req.user);
+        
+        const token = generateToken(req.user.user._id);
+        res.cookie("token",token,{httpOnly:true});
         if (req.user.isNew) {
             // Redirect new users to a different page
             res.redirect(`${process.env.FRONTEND_URL}/profile`);
@@ -112,23 +114,26 @@ app.get("/auth/google/callback",passport.authenticate("google",{
     }     
 )
 
-app.get("/login/sucess",async(req,res)=>{
-    if(req.user){
-        res.status(200).json({value:true,user:req.user})
-    }else{
-        res.status(200).json({value:false})
-    }
-})
+// app.get("/login/sucess",async(req,res)=>{
+//     if(req.user){
+//         res.status(200).json({value:true,user:req.user})
+//     }else{
+//         res.status(200).json({value:false})
+//     }
+// })
 
-app.get("/logout",(req,res,next)=>{
-    req.logout(function(err){
-        if(err){return next(err)}
-        res.redirect(process.env.FRONTEND_URL);
-    })
-})
+app.get('/logout', (req, res, next) => {
+    req.logout((err) => {
+        if (err) return next(err);
+        res.clearCookie('connect.sid', { path: '/' });
+        res.clearCookie('token');
+        console.log("Hellllllllllllllllllo");
+        res.json({value:false})
+    });
+});
 
 
-const server = createServer(app);
+const server = createServer(app);   
 const io = new Server(server, {
     cors: {
         origin: process.env.FRONTEND_URL,

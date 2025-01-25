@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./ProfileUpdate.css";
 import { useAuth } from "../../utils/AuthProvider";
-import axios from "axios";
+import axios from "../../utils/axiosInstance";
 import profilePhoto from "../../photos/image.png";
 import { updateWithOutProfile,updateWithProfile } from "../../APIPath";
 import EditIcon from '@mui/icons-material/Edit';

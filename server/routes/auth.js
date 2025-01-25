@@ -1,19 +1,41 @@
-import express from 'express'
-import { login, signIn, getContacts, getFriends,getUsers,getUserByName, forgotPassword, resetPassword} from '../controllers/authController.js'
-import { getReq, sendReq ,handelRequest} from '../controllers/requestController.js';
+import express from "express";
+import {
+  login,
+  signIn,
+  getContacts,
+  getFriends,
+  getUsers,
+  getUserByName,
+  forgotPassword,
+  resetPassword,
+  getUserInfo,
+  authenticateUser,
+  logOutUser,
+} from "../controllers/authController.js";
+import {
+  getReq,
+  sendReq,
+  handelRequest,
+} from "../controllers/requestController.js";
+import authMiddleware from "../Middlewares/authMiddleware.js";
 
 const route = express.Router();
 
 route.post("/login", login);
 route.post("/signIn", signIn);
-route.get("/users/:id", getContacts)
-route.post("/friends", getFriends)
-route.post("/addfriend", sendReq)
-route.post("/getRequests", getReq)
-route.post("/handleReq", handelRequest)
-route.get("/userInfo/:id", getUsers)
-route.post("/userByName",getUserByName)
-route.post("/forget",forgotPassword)
-route.post("/reset",resetPassword)
 
-export default route
+
+route.get("/authenticate", authMiddleware,authenticateUser)
+route.get("/user",authMiddleware,getUserInfo)
+route.get("/users/:id", authMiddleware, getContacts);
+route.post("/friends", authMiddleware, getFriends);
+route.post("/addfriend", authMiddleware, sendReq);
+route.post("/getRequests", authMiddleware, getReq);
+route.post("/handleReq", authMiddleware, handelRequest);
+route.get("/userInfo/:id", authMiddleware, getUsers);
+route.post("/userByName", authMiddleware, getUserByName);
+route.post("/forget", authMiddleware, forgotPassword);
+route.post("/reset", authMiddleware, resetPassword);
+route.get("/logoutuser", authMiddleware, logOutUser);
+
+export default route;

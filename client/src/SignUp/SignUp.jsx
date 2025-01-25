@@ -1,13 +1,26 @@
-import axios from "axios";
-import React, { useContext, useState } from "react";
+import axios from "../../utils/axiosInstance";
+import React, { useState,useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { signPath } from "../../APIPath";
+import { signPath,authenticateUser } from "../../APIPath";
 import { useAuth } from "../../utils/AuthProvider";
 import styled from "styled-components";
 import { Flip, ToastContainer, toast } from "react-toastify";
-import { set } from "mongoose";
 
+
+axios.defaults.withCredentials=true;
 export const SignUp = () => {
+
+  const checkUser = async()=>{
+    const verify = await axios.get(authenticateUser)
+    if(verify.data.value){
+      window.location.href = '/home'
+    }
+  }
+  useEffect(()=>{
+    checkUser();
+  },[])
+
+
   const [user, setUser1] = useState({});
   const navigate = useNavigate();
   var { signIn, setUser } = useAuth();
@@ -41,7 +54,6 @@ export const SignUp = () => {
 
       if (isUser.value) {
         signIn();
-        setUser(isUser.user);
       }
 
       isUser.notUser

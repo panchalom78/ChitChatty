@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import "./Chat.css";
 import { Message } from "../Message/Message";
 import { getMsg, uploadImage } from "../../APIPath";
-import axios from "axios";
+import axios from "../../utils/axiosInstance";
 import EmojiComponet from "../Emoji/EmojiComponet";
 import { ChatInput } from "../ChatInput/ChatInput";
 import CloseIcon from "@mui/icons-material/Close";

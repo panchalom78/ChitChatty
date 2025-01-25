@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import axios from "axios";
+import axios from "../../utils/axiosInstance";
 import { forgetPass } from "../../APIPath";
 export const ForgetPass = () => {
 

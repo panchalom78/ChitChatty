@@ -1,9 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
+import axios from '../utils/axiosInstance';
 
 import { Link } from "react-router-dom";
 import "./App.css";
+import { authenticateUser } from "../APIPath";
 
 const App = () => {
+
+  const checkUser = async()=>{
+    const verify = await axios.get(authenticateUser)
+    if(verify.data.value){
+      window.location.href = '/home'
+    }
+  }
+  useEffect(()=>{
+    checkUser();
+  },[])
+
   return (
     <div className="main">
       <div className="main-box">

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import axios from 'axios';
+import axios from "../../utils/axiosInstance";
 import styled from 'styled-components';
 import { resetPassword } from '../../APIPath';
 export const ResetPass = () => {

@@ -12,8 +12,8 @@ async function uploadProfile(req, res, next) {
       const f = req.file;
     console.log(f);
 
-    const path = await uploadPhoto(f.path, req.body.id);
-    await addInfo(req.body, path);
+    const path = await uploadPhoto(f.path, req.user);
+    await addInfo(req.body, path,req.user);
     
     deleteImage(f.filename, "./temp", (err, message) => {
       if (err) {
@@ -21,7 +21,7 @@ async function uploadProfile(req, res, next) {
       } else console.log(message);
     });
     data = {
-      id: req.body.id,
+      id: req.user,
       username: req.body.username,
       aboutme: req.body.aboutme,
       profile: path,
@@ -29,9 +29,9 @@ async function uploadProfile(req, res, next) {
     }
     
     else {
-     await addInfo(req.body,req.body.photoLink) 
+     await addInfo(req.body,req.body.photoLink,req.user); 
     data = {
-      id: req.body.id,
+      id: req.user,
       username: req.body.username,
       aboutme: req.body.aboutme,
       profile: req.body.photoLink,
@@ -53,8 +53,6 @@ async function uploadImage(req, res, next) {
       `${req.body.sender}${new Date()}`
     );
 
-    
-
     await addImage(path, req.body.sender, req.body.receiver);
 
     deleteImage(file.filename, "./temp", (err, message) => {
@@ -72,7 +70,7 @@ async function uploadImage(req, res, next) {
 const updateProfileWithProfile = async function (req, res, next) {
   try {
     const file = req.file;
-    const path = await uploadPhoto(file.path,`${req.body.id}${new Date()}`);
+    const path = await uploadPhoto(file.path,`${req.user}${new Date()}`);
 
     deleteImage(file.filename, "./temp", (err, message) => {
       if (err) {
@@ -88,7 +86,7 @@ const updateProfileWithProfile = async function (req, res, next) {
         data = {...data,AboutMe:req.body.about}
     }
 
-    const value = await updateUser(data,req.body.id)
+    const value = await updateUser(data,req.user)
 
     res.json(value)
   } catch (ex) {
@@ -109,7 +107,7 @@ const updateProfileWithOutProfile = async function (req, res, next) {
             data = {...data,AboutMe:req.body.about}
         }
     
-        const value = await updateUser(data,req.body.id)
+        const value = await updateUser(data,req.user)
     
         res.json(value)
       } catch (ex) {

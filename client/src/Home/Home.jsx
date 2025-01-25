@@ -5,8 +5,8 @@ import "./Home.css";
 import { Contact } from "../Contact/Contact";
 import { Chat } from "../Chat/Chat";
 import Welcome from "../Welcome/Welcome";
-import { host, getUsers, getReq, getUser } from "../../APIPath";
-import axios from "axios";
+import { host, getUsers, getReq, getUser, userInfo, logOutUser, googleLogOut } from "../../APIPath";
+import axios from "../../utils/axiosInstance";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { AddFriend } from "../AddFriend/AddFriend";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -15,7 +15,7 @@ import UpdateIcon from "@mui/icons-material/Update";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 export const Home = () => {
-  const { user,setUser } = useAuth();
+  const { user, setUser } = useAuth();
   const navigate = useNavigate();
   const [contacts, setContacts] = useState([]);
   const [requests, setRequests] = useState([]);
@@ -26,49 +26,57 @@ export const Home = () => {
 
   const socket = useRef();
 
-  
+  async function getR() {
+    const data = await axios.post(getReq, { id: user?.id });
+    setRequests(data.data);
+  }
 
   useEffect(() => {
-
-    
-    const getData1 = async() =>{
+    const getData1 = async () => {
       try {
-        const data = await axios.get(`${host}/login/sucess`, { withCredentials: true });
-        if(data.data.value && user===null){
-          setUser(data.data.user.user); 
-        }
+          const data2 = await axios.get(userInfo);
+          setUser(data2.data);
       } catch (error) {
-        alert(error)
+        alert(error);
         navigate("/");
       }
-    }
-    
-    getData1()
+    };
+
+    // const getUserInfo = async () => {
+    //   try {
+    //     if(!user){
+          
+    //     }
+    //   } catch (error) {
+    //     alert("Session expired ,please login again");
+    //     navigate("/");
+    //   }
+    // };
+
     socket.current = io(host);
-    if(user){
+    if (user) {
       socket.current.emit("addUser", { id: user?.id });
     }
 
-    async function getR() {
-      const data = await axios.post(getReq, { id: user?.id });
-      setRequests(data.data);
-    }
-    getR();
+    getData1();
+    // getUserInfo();
   }, []);
 
   useEffect(() => {
     const fetchContacts = async () => {
       try {
-        if (user) { // Only fetch contacts if `user` is set
+        if (user) {
+          // Only fetch contacts if `user` is set
           const data1 = await axios.get(`${getUsers}/${user.id}`);
           socket.current.emit("addUser", { id: user?.id });
           setContacts(data1.data);
+          getR();
         }
       } catch (err) {
         console.error("Error fetching contacts:", err);
       }
     };
-  
+
     fetchContacts();
   }, [user]);
 
@@ -105,10 +113,10 @@ export const Home = () => {
     const handleContact = ({ id, name, profile, aboutme }) => {
       setContacts((prev) => {
         const arr = [...prev, { id, username: name, profile, aboutme }];
-
         return arr;
       });
     };
+
     socket.current.on("addContact", handleContact);
     return () => {
       socket.current.off("addContact", handleContact);
@@ -132,8 +140,10 @@ export const Home = () => {
     });
   }
 
-  const logOut = () => {
+  const logOut = async() => {
     socket.current.disconnect();
+    const data = await axios.get(googleLogOut)
+    // const data = await axios.get(logOutUser);
     navigate("/");
   };
 
@@ -142,7 +152,6 @@ export const Home = () => {
   };
 
   const handleMsg = (msg, senderId) => {
-
     setContacts((prev) => {
       const index = prev.findIndex((c) => c.id === senderId);
       const arr = [];
@@ -175,12 +184,16 @@ export const Home = () => {
         />
       )}
       <nav className="homeNav">
-        <h1 style={{ color: "white" }}>{isMobileView && showChatSection? currentChat.username : "ChitChatty"}</h1>
+        <h1 style={{ color: "white" }}>
+          {isMobileView && showChatSection
+            ? currentChat.username
+            : "ChitChatty"}
+        </h1>
         <div className="btn-grp">
           <button onClick={handleClick}>
             <PersonAddIcon sx={{ color: "white" }} />
           </button>
-          <button onClick={logOut}>
+          <button onClick={()=>{logOut()}}>
             <LogoutIcon />
           </button>
         </div>
@@ -234,7 +247,7 @@ export const Home = () => {
                 user={user}
                 socket={socket}
                 handleMsg={handleMsg}
-                isMobileView={isMobileView} 
+                isMobileView={isMobileView}
               />
             )}
           </div>

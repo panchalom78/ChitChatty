@@ -3,7 +3,6 @@ import Contact from "../models/Contact.js";
 import argon2 from "argon2";
 import jwt from "jsonwebtoken";
 import emailSender from "./emailSender.js";
-import { oauth2client } from "../utils/googleConfig.js";
 
 async function login(req, res, next) {
   try {
@@ -19,9 +18,16 @@ async function login(req, res, next) {
         Email,
         Password: hash,
       });
-      console.log(user);
 
-      res.json({ value: false, id: user._id });
+      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+        expiresIn: "2h",
+      });
+      console.log(user);
+      res.cookie("token", token, {
+        httpOnly: true
+      });
+
+      res.json({ value: false});
     }
   } catch (ex) {
     next(ex);
@@ -41,8 +47,20 @@ async function signIn(req, res, next) {
         return res.json({ value: false });
       }
       if (await argon2.verify(getUser.Password, Password)) {
+        const token = jwt.sign({ id: getUser._id }, process.env.JWT_SECRET, {
+          expiresIn: "2h",
+        });
+
+        res.cookie("token", token, {
+          httpOnly: true          
+        });
+
         if (getUser.ProfilePic === undefined || getUser.ProfilePic === null) {
-          res.json({ isInfoSet: false, value: true, user:{id: getUser._id} });
+          res.json({
+            isInfoSet: false,
+            value: true,
+            user: { id: getUser._id },
+          });
         } else
           res.json({
             isInfoSet: true,
@@ -65,6 +83,27 @@ async function signIn(req, res, next) {
   }
 }
 
+async function authenticateUser(req, res) {
+  if(req.user){
+    return res.json({value:true})
+  }
+  return res.json({value:false})
+}
+
+async function getUserInfo(req, res,next) {
+  try {
+    const user = await User.findOne({_id:req.user},{Password:0,Email:0})
+    return res.json({
+      id:user._id,
+      username:user.Username,
+      about:user.AboutMe,
+      profile: user.ProfilePic
+    })
+  } catch (error) {
+    next(error);
+  }
+}
+
 async function getName(id) {
   const data = await User.findOne({ _id: id }, { Password: 0 });
   return {
@@ -77,7 +116,8 @@ async function getName(id) {
 
 async function getContacts(req, res, next) {
   try {
-    const userId = req.params.id;
+    console.log(req.user);
+    const userId = req.user;
     const data = await Contact.findOne({ user: userId });
     if (data) {
       const list = await Promise.all(
@@ -138,9 +178,9 @@ async function getUserData(id) {
   return data;
 }
 
-const addInfo = async function (body, path) {
+const addInfo = async function (body, path,id) {
   const data = await User.updateOne(
-    { _id: body.id },
+    { _id:id },
     { Username: body.username, AboutMe: body.aboutme, ProfilePic: path }
   );
 };
@@ -163,7 +203,7 @@ const forgotPassword = async function (req, res, next) {
     const { Email } = req.body;
     const user = await User.findOne({ Email });
     if (!user) {
-      return res.json({ error: "User not found" ,value:false});
+      return res.json({ error: "User not found", value: false });
     }
     const token = jwt.sign({ email: Email }, process.env.JWT_SECRET, {
       expiresIn: "1h",
@@ -173,7 +213,7 @@ const forgotPassword = async function (req, res, next) {
     emailSender(Email, resetURL);
     res.json({ value: true });
   } catch (ex) {
-    res.json({value: false, error})
+    res.json({ value: false, error });
     next(ex);
   }
 };
@@ -193,7 +233,7 @@ const resetPassword = async function (req, res, next) {
         { Email: decoded.email },
         { Password: hash }
       );
-      res.json({value:true});
+      res.json({ value: true });
 
       return;
     });
@@ -214,6 +254,12 @@ const addNewUser = async function (data) {
   const user = await User.create(data);
   return user;
 };
+
+const logOutUser = async function (req, res) {
+  res.clearCookie("token");
+  return res.json({ value: false });
+}
+
 export {
   login,
   signIn,
@@ -229,4 +275,7 @@ export {
   resetPassword,
   getUserByGoogleId,
   addNewUser,
+  getUserInfo,
+  authenticateUser,
+  logOutUser
 };
