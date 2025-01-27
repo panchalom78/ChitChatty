@@ -22,15 +22,17 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 
+
 const port = 3000;
 dotenv.config();
 
+const isProduction = process.env.IS_PRODUCTION === "yes";
 const app = express();
 app.use(cors({
     origin: process.env.FRONTEND_URL, // Replace with the frontend's origin
     credentials: true,
 }))
-
+ 
 console.log(process.env.FRONTEND_URL);
 
 app.use(express.json())
@@ -103,7 +105,12 @@ app.get("/auth/google/callback",passport.authenticate("google",{
         console.log("Google req",req.user);
         
         const token = generateToken(req.user.user._id);
-        res.cookie("token",token,{httpOnly:true});
+        res.cookie("token", token, {
+            httpOnly: true,
+            secure: isProduction,
+            sameSite: isProduction ? "None" : "Lax", // Lax for local dev
+            maxAge: 1000 * 60 * 60 * 24,
+          });
         if (req.user.isNew) {
             // Redirect new users to a different page
             res.redirect(`${process.env.FRONTEND_URL}/profile`);
@@ -123,13 +130,13 @@ app.get("/auth/google/callback",passport.authenticate("google",{
 // })
 
 app.get('/logout', (req, res, next) => {
-    res.clearCookie('token');
     req.logout((err) => {
         if (err) return next(err);
-        res.clearCookie('connect.sid', { path: '/' });
+        res.clearCookie('token');   
+        res.clearCookie('connect.sid');
         console.log("Hellllllllllllllllllo");
+        res.json({value:false})
     });
-    res.json({value:false})
 });
 
 
