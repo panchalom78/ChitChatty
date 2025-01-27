@@ -123,13 +123,13 @@ app.get("/auth/google/callback",passport.authenticate("google",{
 // })
 
 app.get('/logout', (req, res, next) => {
+    res.clearCookie('token');
     req.logout((err) => {
         if (err) return next(err);
         res.clearCookie('connect.sid', { path: '/' });
-        res.clearCookie('token');
         console.log("Hellllllllllllllllllo");
-        res.json({value:false})
     });
+    res.json({value:false})
 });
 
 
