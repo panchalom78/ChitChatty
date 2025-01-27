@@ -17,16 +17,15 @@ import {
   sendReq,
   handelRequest,
 } from "../controllers/requestController.js";
-import authMiddleware from "../Middlewares/authMiddleware.js";
+import authMiddleware from "../middlewares/authMiddleware.js";
 
 const route = express.Router();
 
 route.post("/login", login);
 route.post("/signIn", signIn);
 
-
-route.get("/authenticate", authMiddleware,authenticateUser)
-route.get("/user",authMiddleware,getUserInfo)
+route.get("/authenticate", authMiddleware, authenticateUser);
+route.get("/user", authMiddleware, getUserInfo);
 route.get("/users/:id", authMiddleware, getContacts);
 route.post("/friends", authMiddleware, getFriends);
 route.post("/addfriend", authMiddleware, sendReq);

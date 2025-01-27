@@ -8,7 +8,7 @@ import msgRoute from './routes/message.js'
 import { addMessage } from "./controllers/messageController.js"
 import { handelRequest } from "./controllers/requestController.js"
 import { addNewUser, getName, getUserByGoogleId, getUserData } from "./controllers/authController.js"
-import connectDb from './db.js'
+import connectDb from './utils/db.js'
 import path from 'path'
 import dotenv from 'dotenv';
 import { fileURLToPath } from 'url';

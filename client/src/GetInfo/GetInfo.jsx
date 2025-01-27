@@ -7,9 +7,9 @@ import { Flip, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useAuth } from "../../utils/AuthProvider";
 import profilePhoto from "../../photos/image.png";
+import CameraAltIcon from "@mui/icons-material/CameraAlt";
 
 export const GetInfo = () => {
-
   const [photo, setPhoto] = useState(null);
   const [username, setUserName] = useState("");
   const [aboutme, setAboutMe] = useState("");
@@ -20,6 +20,7 @@ export const GetInfo = () => {
   const navigate = useNavigate();
   const { user, setUser } = useAuth();
 
+  const imageURL = "https://res-console.cloudinary.com/dg8rrxsr3/media_explorer_thumbnails/3c6630f82a469b537351f6c111997e08/detailed"
   const toastOptions = {
     position: "bottom-right",
     autoClose: 5000,
@@ -52,10 +53,13 @@ export const GetInfo = () => {
     try {
       e.preventDefault();
       const formData = new FormData();
-      if(photoURL === user?.profile){
-        formData.append('photoLink',photoURL)
+      if (photoURL === user?.profile) {
+        formData.append("photoLink", photoURL);
       }
-      else{
+      else if(!isPhotoSet){
+        formData.append("photoLink", imageURL);
+      }
+      else {
         formData.append("photo", photo);
       }
       formData.append("username", username);
@@ -69,15 +73,15 @@ export const GetInfo = () => {
     }
   };
 
-  const getUser = async ()=>{
+  const getUser = async () => {
     try {
       const data = await axios.get(userInfo);
-      if(data.data.username){
-        setUserName(data.data.username)        
+      if (data.data.username) {
+        setUserName(data.data.username);
       }
-      if(data.data.profile){
-        setPhotoURL(data.data.profile)
-        setIsPhotoSet(true)
+      if (data.data.profile) {
+        setPhotoURL(data.data.profile);
+        setIsPhotoSet(true);
       }
 
       // if(data.data.value){
@@ -87,14 +91,14 @@ export const GetInfo = () => {
       //   setIsPhotoSet(true)
       // }
     } catch (error) {
-      alert(error)
+      alert(error);
       navigate("/");
     }
-  }
+  };
 
-  useEffect(()=>{
+  useEffect(() => {
     getUser();
-  },[])
+  }, []);
 
   return (
     <>
@@ -104,16 +108,20 @@ export const GetInfo = () => {
         ) : (
           <form onSubmit={handleSubmit} id="infoForm">
             <div className="profilePic">
-              <label htmlFor="files" id="profileLabel">
-                <div
-                  className="photoDiv"
-                  style={{
-                    backgroundImage: isPhotoSet
-                      ? `url(${photoURL})`
-                      : `url(${profilePhoto})`,
-                  }}
-                ></div>
-              </label>
+              <div
+                className="photoDiv"
+                style={{
+                  backgroundImage: isPhotoSet
+                    ? `url(${photoURL})`
+                    : `url(${profilePhoto})`,
+                }}
+              >
+                <label htmlFor="files" id="profileLabel">
+                  <div className="cameraIcon">
+                    <CameraAltIcon />
+                  </div>
+                </label>
+              </div>
             </div>
             <input type="file" id="files" onChange={handleChange} />
             <input

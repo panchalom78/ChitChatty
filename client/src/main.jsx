@@ -5,13 +5,11 @@ import { Login } from "./Login/Login.jsx";
 import { Home } from "./Home/Home.jsx";
 import { SignUp } from "./SignUp/SignUp.jsx";
 import AuthProvider from "../utils/AuthProvider.jsx";
-import ProtectedRoute from "../utils/ProtectedRoute.jsx";
 import { GetInfo } from "./GetInfo/GetInfo.jsx";
 import { ProfileUpdate } from "./ProfileUpdate/ProfileUpdate.jsx";
-import { GoogleOAuthProvider } from '@react-oauth/google';
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import { ForgetPass } from "./ForgetPass/ForgetPass.jsx";
 import { ResetPass } from "./ResetPass/ResetPass.jsx";
-
 
 const router = new createBrowserRouter([
   {
@@ -28,34 +26,32 @@ const router = new createBrowserRouter([
   },
   {
     path: "home",
-    element: (
-        <Home/>
-    ),
+    element: <Home />,
   },
   {
-    path:"profile",
-    element: <GetInfo/>
+    path: "profile",
+    element: <GetInfo />,
   },
   {
-    path:"updateProfile",
-    element:<ProfileUpdate/>
+    path: "updateProfile",
+    element: <ProfileUpdate />,
   },
   {
-    path:"forgetpass",
-    element:<ForgetPass/>
+    path: "forgetpass",
+    element: <ForgetPass />,
   },
   {
-    path:"resetpass",
-    element:<ResetPass/>
-  }
+    path: "resetpass",
+    element: <ResetPass />,
+  },
 ]);
 
 createRoot(document.getElementById("root")).render(
   <>
-  <GoogleOAuthProvider clientId="893628773417-u55rk7qohupju507k93rg09ues8h2fv2.apps.googleusercontent.com">
-    <AuthProvider>
-      <RouterProvider router={router} />
-    </AuthProvider>
+    <GoogleOAuthProvider clientId={import.meta.env.VITE_REACT_GOOGLE_CLIENT_ID}>
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
     </GoogleOAuthProvider>
   </>
 );

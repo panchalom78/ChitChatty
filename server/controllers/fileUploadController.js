@@ -1,43 +1,41 @@
-import { uploadPhoto } from "../FileHandel/Cloudinary.js";
+import { uploadPhoto } from "../filehandel/Cloudinary.js";
 import { addInfo, updateUser } from "./authController.js";
-import deleteImage from "../FileHandel/DeleteFile.js";
+import deleteImage from "../filehandel/DeleteFile.js";
 import { addImage } from "./messageController.js";
 
 async function uploadProfile(req, res, next) {
   try {
     console.log(req.body);
-    let data={};
+    let data = {};
 
-    if(req.file){
+    if (req.file) {
       const f = req.file;
-    console.log(f);
+      console.log(f);
 
-    const path = await uploadPhoto(f.path, req.user);
-    await addInfo(req.body, path,req.user);
-    
-    deleteImage(f.filename, "./temp", (err, message) => {
-      if (err) {
-        console.error(err.message);
-      } else console.log(message);
-    });
-    data = {
-      id: req.user,
-      username: req.body.username,
-      aboutme: req.body.aboutme,
-      profile: path,
-    };
+      const path = await uploadPhoto(f.path, req.user);
+      await addInfo(req.body, path, req.user);
+
+      deleteImage(f.filename, "./temp", (err, message) => {
+        if (err) {
+          console.error(err.message);
+        } else console.log(message);
+      });
+      data = {
+        id: req.user,
+        username: req.body.username,
+        aboutme: req.body.aboutme,
+        profile: path,
+      };
+    } else {
+      await addInfo(req.body, req.body.photoLink, req.user);
+      data = {
+        id: req.user,
+        username: req.body.username,
+        aboutme: req.body.aboutme,
+        profile: req.body.photoLink,
+      };
     }
-    
-    else {
-     await addInfo(req.body,req.body.photoLink,req.user); 
-    data = {
-      id: req.user,
-      username: req.body.username,
-      aboutme: req.body.aboutme,
-      profile: req.body.photoLink,
-    };
-    }
-    
+
     res.json(data);
   } catch (ex) {
     next(ex);
@@ -70,49 +68,53 @@ async function uploadImage(req, res, next) {
 const updateProfileWithProfile = async function (req, res, next) {
   try {
     const file = req.file;
-    const path = await uploadPhoto(file.path,`${req.user}${new Date()}`);
+    const path = await uploadPhoto(file.path, `${req.user}${new Date()}`);
 
     deleteImage(file.filename, "./temp", (err, message) => {
       if (err) {
         console.error(err.message);
       } else console.log(message);
     });
-    
-    let data = {ProfilePic: path}
-    if(req.body.username){
-        data = {...data,Username:req.body.username}
+
+    let data = { ProfilePic: path };
+    if (req.body.username) {
+      data = { ...data, Username: req.body.username };
     }
-    if(req.body.about){
-        data = {...data,AboutMe:req.body.about}
+    if (req.body.about) {
+      data = { ...data, AboutMe: req.body.about };
     }
 
-    const value = await updateUser(data,req.user)
+    const value = await updateUser(data, req.user);
 
-    res.json(value)
+    res.json(value);
   } catch (ex) {
     next(ex);
   }
 };
 
 const updateProfileWithOutProfile = async function (req, res, next) {
-    try {
-      console.log(req.body);
-      
-        
-        let data = {}
-        if(req.body.username){
-            data = {...data,Username:req.body.username}
-        }
-        if(req.body.about){
-            data = {...data,AboutMe:req.body.about}
-        }
-    
-        const value = await updateUser(data,req.user)
-    
-        res.json(value)
-      } catch (ex) {
-        next(ex);
-      }
+  try {
+    console.log(req.body);
+
+    let data = {};
+    if (req.body.username) {
+      data = { ...data, Username: req.body.username };
+    }
+    if (req.body.about) {
+      data = { ...data, AboutMe: req.body.about };
+    }
+
+    const value = await updateUser(data, req.user);
+
+    res.json(value);
+  } catch (ex) {
+    next(ex);
+  }
 };
 
-export { uploadProfile, uploadImage ,updateProfileWithOutProfile,updateProfileWithProfile};
+export {
+  uploadProfile,
+  uploadImage,
+  updateProfileWithOutProfile,
+  updateProfileWithProfile,
+};

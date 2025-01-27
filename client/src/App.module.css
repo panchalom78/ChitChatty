@@ -1,0 +1,137 @@
+/* General Reset */
+body, html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif; /* Clean modern font */
+  height: 100%; /* Ensures the body and html occupy full viewport height */
+  width: 100%; /* Ensures full viewport width */
+  background: linear-gradient(135deg, #0d6efd 30%, #6c63ff 100%); /* Gradient background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* Prevents scrolling issues */
+}
+
+/* Main container styles */
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+/* Main box styles */
+.mainBox {
+  background-color: #ffffff; /* White card for focus */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25); /* Prominent shadow for depth */
+  border-radius: 16px; /* Rounded corners for smooth look */
+  padding: 50px 40px;
+  width: 400px;
+  text-align: center;
+  animation: fadeIn 1s ease-in-out; /* Smooth entrance animation */
+}
+
+/* Heading styles */
+h1 {
+  font-size: 28px; /* Larger text for emphasis */
+  font-weight: bold;
+  color: #333333; /* Darker gray for contrast */
+  margin-bottom: 20px;
+}
+
+.highlight {
+  color: #0d6efd; /* Primary blue highlight */
+}
+
+/* Subtitle styles */
+.subtitle {
+  font-size: 16px;
+  color: #555555; /* Lighter gray for subtler text */
+  margin-bottom: 30px;
+}
+
+/* Link container styles */
+.ctaButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Space between buttons */
+}
+
+/* Button styles */
+.login, .signup {
+  display: inline-block;
+  padding: 14px 25px;
+  text-decoration: none;
+  font-size: 16px;
+  color: #ffffff; /* White text for contrast */
+  background-color: #0d6efd; /* Primary blue */
+  border-radius: 10px; /* Smooth button edges */
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  cursor: pointer;
+}
+
+.signup {
+  background-color: #6c63ff; /* Secondary purple */
+}
+
+.login:hover {
+  background-color: #084298; /* Darker blue on hover */
+  transform: scale(1.05); /* Subtle pop-out effect */
+}
+
+.signup:hover {
+  background-color: #4e44d3; /* Darker purple on hover */
+  transform: scale(1.05);
+}
+
+/* Paragraph styles within buttons */
+.login p, .signup p {
+  margin: 0;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+      transform: translateY(-20px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .main-box {
+    width: 90%; /* Adjust width to fit smaller screens */
+    padding: 30px 25px;
+  }
+
+  h1 {
+    font-size: 24px; /* Adjust font size for smaller screens */
+  }
+
+  .login, .signup {
+    font-size: 15px; /* Slightly smaller buttons */
+    padding: 12px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 20px; /* Further reduce heading size */
+  }
+
+  .login, .signup {
+    font-size: 14px; /* Make buttons even more compact */
+    padding: 10px 18px;
+  }
+
+  .main-box {
+    padding: 20px 15px; /* Reduce padding */
+  }
+}
