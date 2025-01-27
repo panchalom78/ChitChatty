@@ -1,6 +1,6 @@
-import { uploadPhoto } from "../filehandel/Cloudinary.js";
+import { uploadPhoto } from "../FileHandel/Cloudinary.js";
 import { addInfo, updateUser } from "./authController.js";
-import deleteImage from "../filehandel/DeleteFile.js";
+import deleteImage from "../FileHandel/DeleteFile.js";
 import { addImage } from "./messageController.js";
 
 async function uploadProfile(req, res, next) {

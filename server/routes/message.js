@@ -6,8 +6,8 @@ import {
   uploadImage,
   uploadProfile,
 } from "../controllers/fileUploadController.js";
-import conditionalUpload from "../filehandel/Upload.js";
-import authMiddleware from "../middlewares/authMiddleware.js";
+import conditionalUpload from "../FileHandel/Upload.js";
+import authMiddleware from "../Middlewares/authMiddleware.js";
 
 const router = express.Router();
 

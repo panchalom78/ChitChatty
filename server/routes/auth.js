@@ -17,7 +17,7 @@ import {
   sendReq,
   handelRequest,
 } from "../controllers/requestController.js";
-import authMiddleware from "../middlewares/authMiddleware.js";
+import authMiddleware from "../Middlewares/authMiddleware.js";
 
 const route = express.Router();
 
