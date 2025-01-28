@@ -144,10 +144,9 @@ app.get(
 // })
 
 app.get("/logout", (req, res, next) => {
-  res.clearCookie("token");
-  res.clearCookie("connect.sid");
+  res.clearCookie("token",{sameSite:isProduction ? "none" : "lax",secure:isProduction,httpOnly:true});
   console.log("Hellllllllllllllllllo");
-  res.json({ value: false });
+  res.json({ value: true });
 });
 
 const server = createServer(app);

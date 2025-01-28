@@ -144,7 +144,8 @@ export const Home = () => {
     socket.current.disconnect();
     const data = await axios.get(googleLogOut)
     // const data = await axios.get(logOutUser);
-    navigate("/");
+    if(data.data.value)
+      navigate("/");
   };
 
   const handleSendReq = (rId) => {
