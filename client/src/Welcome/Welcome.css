@@ -1,14 +1,41 @@
-.welcome{
+.welcome {
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     background-color: rgb(19, 23, 35);
+    color: #ffffff; /* Default text color */
 }
 
-.msg-svg {
-    display: inline-block;
-    margin: 0 0.5rem;
-    animation: flip infinite; /* referring directly to the animation's @keyframe declaration */
-    animation-duration: 2s; /* don't forget to set a duration! */
-  }
+.messageDiv {
+    max-width: 600px;
+    padding: 20px;
+    border-radius: 12px;
+}
+
+
+
+.messageDiv p {
+    font-size: 2rem;
+    color: #f0f0f0; /* Light text for contrast */
+    font-family: 'Arial', sans-serif;
+    line-height: 1.5;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7); /* Subtle shadow for depth */
+    margin-top: 1rem;
+    margin-bottom: 0;
+    padding: 0;
+    word-wrap: break-word;
+    letter-spacing: 1.2px; /* Slightly increased spacing */
+}
+
+@keyframes flip {
+    0% {
+        transform: rotateY(0deg);
+    }
+    50% {
+        transform: rotateY(180deg);
+    }
+    100% {
+        transform: rotateY(360deg);
+    }
+}
